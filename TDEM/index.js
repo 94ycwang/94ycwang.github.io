@@ -1,7 +1,7 @@
 
 //************************************ Merge power outage model output with tract ID ********************************************
 // Retrived data from csv file content
-var url = "HPOM/sample.csv";
+var url = "https://94ycwang.github.io/TDEM/HPOM/sample.csv";
 var request = new XMLHttpRequest();  //This is deprecated. We need to change this
 request.open("GET", url, false);   
 request.send(null);  
