@@ -76,6 +76,10 @@ li a.active {
   padding: 10px 40px;
 }
 
+a.link {
+  text-decoration: initial;
+  color: blue;	
+}	
 p {
 	 font:16px Book Antiqua;
      align-content:stretch;
