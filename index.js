@@ -1,7 +1,7 @@
 
 //************************************ Merge power outage model output with tract ID ********************************************
 // Retrived data from csv file content
-var url = "http://chapmanrebecca.com/AppliedClimate/HPOM/sample.csv";
+var url = "https://94ycwang.github.io/TDEM/HPOM/sample.csv";
 var request = new XMLHttpRequest();  //This is deprecated. We need to change this
 request.open("GET", url, false);   
 request.send(null);  
@@ -20,7 +20,7 @@ function Get(yourUrl){
     return Httpreq.responseText;          
 };
 
-var HPOM = JSON.parse(Get('http://chapmanrebecca.com/AppliedClimate/HPOM/ctract.geojson'));	
+var HPOM = JSON.parse(Get('https://94ycwang.github.io/TDEM/HPOM/ctract.geojson'));	
 
 for (var i = 0; i < HPOM.features.length; i++) {
     HPOM.features[i].properties.power = 0;
@@ -65,6 +65,17 @@ function style(feature) {
         fillOpacity: 0.5
     };
 };
+
+function style1(feature) {
+    return {
+        fillColor: getColor_P(feature.properties.people),
+        weight: 1,
+        opacity:1,
+        color: getColor_P(feature.properties.people),
+        fillOpacity: 0.5
+    };
+};
+
 function style2(feature) {
     return {
         fillColor: false,
@@ -84,6 +95,16 @@ function style2(feature) {
            d > 20  ? '#FD8D3C' :
            d > 10  ? '#FEB24C' :
                      '#FFEDA0' ;
+};	
+
+   function getColor_P(d) {
+    return d > 3000   ? '#800026' :
+           d > 2500   ? '#BD0026' :
+           d > 2000   ? '#E31A1C' :
+           d > 1500   ? '#FC4E2A' :
+           d > 1000   ? '#FD8D3C' :
+           d > 500    ? '#FEB24C' :
+                        '#FFEDA0' ;
 };	
 
 
@@ -109,6 +130,9 @@ function highlightFeature(e) {
 function resetHighlight(e) {
     geojson.setStyle(style);
 	info.update();
+	if(flagww==1){		
+        watch_warning.bringToFront();		
+    };
 };
 
 function zoomToFeature(e) {
@@ -123,10 +147,30 @@ function onEachFeature(feature, layer) {
     });
 };
 
+// Interactions when HPOM_P layer is on
+function resetHighlight1(e) {
+    geojson_P.setStyle(style1);
+	info.update();
+	if(flagww==1){		
+        watch_warning.bringToFront();		
+    };
+};
+
+function onEachFeature1(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight1,
+        click: zoomToFeature
+    });
+};
+
 // Interactions when wind/&surge layer is on
 function resetHighlight2(e) {
     geojson2.setStyle(style2);
 	info.update();
+	if(flagww==1){		
+        watch_warning.bringToFront();		
+    };
 };
 
 function onEachFeature2(feature, layer) {
@@ -137,13 +181,18 @@ function onEachFeature2(feature, layer) {
     });
 };
 	
-LHPOM   = L.geoJson(HPOM, {style: style}).addTo(mymap);
-LHPOM2  = L.geoJson(HPOM, {style: style2});
+LHPOM     = L.geoJson(HPOM, {style: style}).addTo(mymap);
+LHPOM_P   = L.geoJson(HPOM, {style: style1});
+LHPOM2    = L.geoJson(HPOM, {style: style2});
 
 geojson = L.geoJson(HPOM, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(mymap);
+geojson_P = L.geoJson(HPOM, {
+    style: style1,
+    onEachFeature: onEachFeature1
+});
 geojson2 = L.geoJson(HPOM, {
     style: style2,
     onEachFeature: onEachFeature2
@@ -260,14 +309,23 @@ function getLayer(value){
 	Pwind34.remove();
 	Pwind50.remove();
 	Pwind64.remove();
-	
-	LHPOM2.remove();
-    geojson2.remove();
+	if(!(flagpower==0 && flagpeople==0)){
+	   LHPOM2.remove();
+       geojson2.remove();
+	};   
 	legend_surge.remove();
 	legend_wind.remove();
-    LHPOM.addTo(mymap);
-    geojson.addTo(mymap);
-	legend.addTo(mymap)
+	
+	if(flagpower==1){
+       LHPOM.addTo(mymap);
+       geojson.addTo(mymap);
+	   legend.addTo(mymap);
+	};
+	if(flagpeople==1){
+	   LHPOM_P.addTo(mymap);
+       geojson_P.addTo(mymap);
+	   legend_P.addTo(mymap);	
+	};
 	
 	document.getElementById("myCheck1").checked = false;
 	document.getElementById("myCheck2").checked = false;
@@ -279,17 +337,17 @@ function getLayer(value){
 	if(value=="sample"){
 	
 	  // Sample hurricane layers: 2017 Harvey #15
-	  track_forecast = new L.Shapefile('http://chapmanrebecca.com/AppliedClimate/HPOM/al092017_5day_015.zip',
+	  track_forecast = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/al092017_5day_015.zip',
 	  {style: myStyle1});
-	  watch_warning  = new L.Shapefile('http://chapmanrebecca.com/AppliedClimate/HPOM/al092017-015_ww_wwlin.zip',
+	  watch_warning  = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/al092017-015_ww_wwlin.zip',
 	  {style: myStyle2});
-	  Psurge  = new L.Shapefile('http://chapmanrebecca.com/AppliedClimate/HPOM/al092017_esurge10_2017082400.zip',
+	  Psurge  = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/al092017_esurge10_2017082400.zip',
 	  {style: myStyle3});
-	  Pwind34 = new L.Shapefile('http://chapmanrebecca.com/AppliedClimate/HPOM/2017082400_wsp_120hr5km34.zip',
+	  Pwind34 = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/2017082400_wsp_120hr5km34.zip',
 	  {style: myStyle4});
-	  Pwind50 = new L.Shapefile('http://chapmanrebecca.com/AppliedClimate/HPOM/2017082400_wsp_120hr5km50.zip',
+	  Pwind50 = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/2017082400_wsp_120hr5km50.zip',
 	  {style: myStyle4});
-	  Pwind64 = new L.Shapefile('http://chapmanrebecca.com/AppliedClimate/HPOM/2017082400_wsp_120hr5km64.zip',
+	  Pwind64 = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/2017082400_wsp_120hr5km64.zip',
 	  {style: myStyle4});
 	
 	}else{
@@ -356,7 +414,7 @@ L.control.layers(baseMaps, overlayMaps).addTo(mymap);
 
 
 //******************************************************** Legend ***************************************************************
-// Legend of HPOM output
+// Legend of HPOM output (percentage)
 var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
@@ -371,6 +429,21 @@ legend.onAdd = function (map) {
     return div;
 };
 legend.addTo(mymap);
+
+// Legend of HPOM output (population)
+var legend_P = L.control({position: 'bottomright'});
+legend_P.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+    grades = [0, 500, 1000, 1500, 2000, 2500, 3000],
+    labels = [];
+    // Loop through our percentage intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor_P(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] +'<br>' :'+');
+    }
+    return div;
+};
 	
 // Legend of storm surge probabilities	
 var legend_surge = L.control({position: 'bottomright'});
@@ -403,6 +476,67 @@ legend_wind.onAdd = function (map) {
 		
 
 //***************************** Function used to add and remove layers via a checkbox *******************************************	
+// Checkbox function for HPOM output
+var flagpower    = 1;  // Whether LHPOM layer is on
+var flagpeople   = 0;  // Whether LHPOM_P layer is on
+function addLayerToMap_HPOM(element, layer) {
+	
+    if (element.checked){
+
+      	if(layer==LHPOM){
+		   flagpower    = 1;
+		   flagpeople   = 0;
+		   document.getElementById("Check2").checked = false;
+		   LHPOM_P.remove();
+		   geojson_P.remove();
+		   legend_P.remove();
+		   // Add layer when Psurge and Pwind layers are all closed
+		   if(check_number==0){
+	          LHPOM.addTo(mymap);
+		      geojson.addTo(mymap); 
+		      legend.addTo(mymap); 
+		   };
+	    }else{
+		   flagpeople   = 1;
+		   flagpower    = 0;
+		   document.getElementById("Check1").checked = false;
+		   LHPOM.remove();
+		   geojson.remove();
+		   legend.remove();
+		   if(check_number==0){
+		      LHPOM_P.addTo(mymap);
+		      geojson_P.addTo(mymap); 	
+              legend_P.addTo(mymap);
+		   };			  
+		};
+		 // Keep track_forecast and watch_warning layers on top
+		if(flagtrack==1){		
+		      track_forecast.bringToFront();
+		   };
+        if(flagww==1){		
+              watch_warning.bringToFront();		
+           };
+		
+    } else {
+		
+        if(layer==LHPOM){
+		   flagpower    = 0;
+	       LHPOM.remove();
+		   geojson.remove(); 
+		   legend.remove();
+	    }else{
+		   flagpeople    = 0;
+		   LHPOM_P.remove();
+		   geojson_P.remove();
+           legend_P.remove();
+		};
+	};	
+ 	if(flagpower==0 && flagpeople==0){
+		LHPOM2.addTo(mymap);
+		geojson2.addTo(mymap);
+	}	
+};
+
 var flagtrack    = 0;  // Whether track_forecast layer is on
 var flagww       = 0;  // Whether watch_warning layer is on
 
@@ -426,24 +560,7 @@ function addLayerToMap(element, layer) {
 	    if(layer==watch_warning){
 	       flagww    = 0;
 	    };	
-		
-		if(check_number==0){
-           layer.remove();
-		   LHPOM2.remove();
-		   geojson2.remove();
-		   LHPOM.addTo(mymap);
-		   geojson.addTo(mymap);
-		   
-		   // Keep track_forecast and watch_warning layers on top
-           if(flagtrack==1){		
-		      track_forecast.bringToFront();
-		   };
-           if(flagww==1){		
-              watch_warning.bringToFront();		
-           };
-		}else{
-		   layer.remove();				
-		};	
+		layer.remove();					
 	};
 };
 
@@ -452,8 +569,8 @@ function addLayerToMap(element, layer) {
 function addLayerToMap2(element, layer) {
     if (element.checked){
 		check_number ++;
-		
 		legend.remove();
+		legend_P.remove();
 		if(layer==Psurge){
 	        legend_surge.addTo(mymap);
 	    }else{
@@ -465,6 +582,8 @@ function addLayerToMap2(element, layer) {
 		
 		LHPOM.remove();	
 		geojson.remove();
+		LHPOM_P.remove();	
+		geojson_P.remove();
 		LHPOM2.remove();
 		geojson2.remove();
 		LHPOM2.addTo(mymap);
@@ -485,11 +604,20 @@ function addLayerToMap2(element, layer) {
 		
 		if(check_number==0){
            layer.remove();
-		   LHPOM2.remove();
-		   geojson2.remove();
-		   LHPOM.addTo(mymap);
-		   geojson.addTo(mymap);
-		   legend.addTo(mymap)
+		   if(!(flagpower==0 && flagpeople==0)){
+	          LHPOM2.remove();
+              geojson2.remove();
+	       };   
+           if(flagpower==1){
+		      LHPOM.addTo(mymap);
+		      geojson.addTo(mymap);
+			  legend.addTo(mymap);
+		   };
+		   if(flagpeople==1){
+		      LHPOM_P.addTo(mymap);
+		      geojson_P.addTo(mymap);
+			  legend_P.addTo(mymap);
+		   };
 		   if(flagtrack==1){		
 		      track_forecast.bringToFront();
 		   };
@@ -499,6 +627,12 @@ function addLayerToMap2(element, layer) {
         }else{
 		   layer.remove();				
 		};	
+    };
+	if(flagtrack==1){		
+		      track_forecast.bringToFront();
+    };
+    if(flagww==1){		
+              watch_warning.bringToFront();		
     };
 };
 
@@ -512,7 +646,7 @@ function popup(id) {
 
 //****************************************************** Download files *********************************************************
 function downloadObjectAsCsv(exportObj, exportName){
-    var dataUrl = "http://chapmanrebecca.com/AppliedClimate/HPOM/sample.csv";
+    var dataUrl = "https://94ycwang.github.io/TDEM/HPOM/sample.csv";
     var downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href",     dataUrl);
     downloadAnchorNode.click();
