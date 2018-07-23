@@ -52,8 +52,8 @@ for (var j = 0; j < HPOM.features.length; j++) {
 //******************************************* Map HPOM output with hover-over function ******************************************
 // Set variable for map and initialize
 var mymap =  L.map('mapid', {
-    center: [20, 110],
-    zoom: 20,
+    center: [20.32, 110],
+    zoom: 25,
 });
   mymap.createPane('radar');
 
