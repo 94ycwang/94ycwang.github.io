@@ -44,4 +44,4 @@ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18, attribution: '[insert correct attribution here!]' });
 
 var clouds = L.OWM.wind({showLegend: true, opacity: 0.5, peedUnit: 'ms', appId: '50fb245848ee7d2c3bc723abd817a15a'}).addTo(map);
-var city   = L.OWM.current({intervall: 15, lang: 'de'}).addTo(map);
+var city   = L.OWM.current({intervall: 1, lang: 'de'}).addTo(map);
