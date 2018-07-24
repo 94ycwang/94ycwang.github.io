@@ -231,7 +231,6 @@ L.OWM.Current = L.Layer.extend({
 		minZoom: 7,
 		interval: 0, // interval for rereading city data in minutes
 		progressControl: true, // available: true, false
-		imageLoadingUrl: 'owmloading.gif', // URL of loading image relative to HTML document
 		imageLoadingBgUrl: null, // URL of background image for progress control
 		temperatureUnit: 'C', // available: 'K' (Kelvin), 'C' (Celsius), 'F' (Fahrenheit)
 		temperatureDigits: 1,
@@ -288,7 +287,6 @@ L.OWM.Current = L.Layer.extend({
 			this._progressCtrl = L.OWM.progressControl({
 					type: this.options.type
 					, bgImage: bgIcon
-					, imageLoadingUrl: this.options.imageLoadingUrl
 					, owmInstance: this
 			});
 		}
@@ -724,7 +722,7 @@ L.OWM.ProgressControl = L.Control.extend({
 			this._container.style.backgroundPosition = 'center center';
 		}
 		L.DomEvent.disableClickPropagation(this._container);
-		this._container.innerHTML = '<img src="' + this.options.imageLoadingUrl + '" width="50" height="50" />';
+		this._container.innerHTML = '<img src="'  + '" width="50" height="50" />';
 	},
 
 	onAdd: function(map) {

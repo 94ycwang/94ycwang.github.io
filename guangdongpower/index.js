@@ -18,6 +18,8 @@ var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
         maxZoom: 18,
         minZoom: 5
     });
+
+
 var normal = L.layerGroup([normalm, normala]),
     image = L.layerGroup([imgm, imga]);
 var baseLayers = {
@@ -38,4 +40,8 @@ L.control.zoom({
     zoomOutTitle: '缩小'
 }).addTo(map);
 
-var clouds = L.OWM.clouds({showLegend: false, opacity: 0.5, appId: '&APPID=50fb245848ee7d2c3bc723abd817a15a'}).addTo(map);
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 18, attribution: '[insert correct attribution here!]' });
+
+var clouds = L.OWM.wind({showLegend: true, opacity: 0.5, peedUnit: 'ms', appId: '50fb245848ee7d2c3bc723abd817a15a'}).addTo(map);
+var city   = L.OWM.current({intervall: 15, lang: 'de'}).addTo(map);
