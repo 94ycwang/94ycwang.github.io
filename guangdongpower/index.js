@@ -38,4 +38,4 @@ L.control.zoom({
     zoomOutTitle: '缩小'
 }).addTo(map);
 
-
+var clouds = L.OWM.clouds({showLegend: false, opacity: 0.5, appId: '&APPID=50fb245848ee7d2c3bc723abd817a15a'}).addTo(map);
