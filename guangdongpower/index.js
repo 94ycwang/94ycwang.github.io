@@ -70,5 +70,12 @@ $('#layeropacity').on('input', function (value) {
 });
 
 //
-counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/CHN_adm3.shp',
-	  ).addTo(map);
+function Get(yourUrl){
+    var Httpreq = new XMLHttpRequest(); // A new request
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;          
+};
+
+var county = JSON.parse(Get('https://94ycwang.github.io/guangdongpower/HPOM/440800.json'));	
+L.geoJson(county).addTo(map);
