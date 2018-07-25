@@ -78,4 +78,5 @@ function Get(yourUrl){
 };
 
 var county = JSON.parse(Get('https://94ycwang.github.io/guangdongpower/HPOM/440800.json'));	
-L.geoJson(county).addTo(map);
+L.geoJson(county);
+counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/CHN_adm3.shp').addTo(map);
