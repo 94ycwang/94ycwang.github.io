@@ -79,4 +79,4 @@ function Get(yourUrl){
 
 var county = JSON.parse(Get('https://94ycwang.github.io/guangdongpower/HPOM/440800.json'));	
 L.geoJson(county);
-counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/guangdong.zip').addTo(map);
+counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/guangdong.zip').addTo(map);
