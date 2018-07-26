@@ -2493,6 +2493,77 @@ L.OWM.Utils = {
 			, id906: 'Hail'
 		},
 		
+		ch: {
+			owmlinktitle: '更多信息请访问 OpenWeatherMap'
+			, temperature: '温度'
+			, temp_minmax: '最低/最高温度'
+			, wind: '风速'
+			, gust: 'Gust'
+			, windforce: '风力'
+			, direction: '风向'
+			, rain_1h: '降雨'
+			, humidity: '湿度'
+			, pressure: '气压'
+
+		// weather conditions, see https://openweathermap.org/weather-conditions
+			, id200: '雷暴和小雨'
+			, id201: '雷暴和中雨'
+			, id202: '雷暴和大雨'
+			, id210: '雷暴(小)'
+			, id211: '雷暴(中)'
+			, id212: '雷暴(大)'
+			, id221: '雷暴(阵)'
+			, id230: '雷暴和毛毛雨(小)'
+			, id231: '雷暴和毛毛雨(中)'
+			, id232: '雷暴和毛毛雨(大)'
+
+			, id300: '毛毛雨(小)'
+			, id301: '毛毛雨(中)'
+			, id302: '毛毛雨(大)'
+			, id310: '小雨'
+			, id311: '中雨'
+			, id312: '大雨'
+			, id321: '阵雨'
+
+			, id500: '小雨'
+			, id501: '中雨'
+			, id502: '大雨'
+			, id503: '暴雨'
+			, id504: '大暴雨'
+			, id511: '冻雨'
+			, id520: '阵雨(小)'
+			, id521: '阵雨(中)'
+			, id522: '阵雨(大)'
+
+			, id600: '小雪'
+			, id601: '中雪'
+			, id602: '大雪'
+			, id611: '雨夹雪'
+			, id621: '阵雪'
+			, id622: '阵雪(大)'
+
+			, id701: '薄雾'
+			, id711: '烟雾'
+			, id721: '霾'
+			, id731: '尘卷风'
+			, id741: '雾'
+			, id751: '沙尘'
+
+			, id800: '晴'
+			, id801: '少云'
+			, id802: '多云'
+			, id803: '多云'
+			, id804: '阴'
+
+			, id900: '龙卷风'
+			, id901: '热带风暴'
+			, id902: '台风'
+			, id903: '寒潮'
+			, id904: '高温'
+			, id905: '大风'
+			, id906: '冰雹'
+		},
+		
 		it: {
 			owmlinktitle: 'Dettagli su OpenWeatherMap'
 			, temperature: 'Temperatura'
