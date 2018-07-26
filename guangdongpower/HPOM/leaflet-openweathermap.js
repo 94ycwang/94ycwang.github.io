@@ -2496,9 +2496,9 @@ L.OWM.Utils = {
 		ch: {
 			owmlinktitle: '更多信息请访问 OpenWeatherMap'
 			, temperature: '温度'
-			, temp_minmax: '最低/最高温度'
+			, temp_minmax: '最低/最高 温度'
 			, wind: '风速'
-			, gust: 'Gust'
+			, gust: '阵风'
 			, windforce: '风力'
 			, direction: '风向'
 			, rain_1h: '降雨'
@@ -2523,7 +2523,7 @@ L.OWM.Utils = {
 			, id310: '小雨'
 			, id311: '中雨'
 			, id312: '大雨'
-			, id321: '阵雨'
+			, id321: '毛毛雨(阵)'
 
 			, id500: '小雨'
 			, id501: '中雨'
@@ -2562,6 +2562,77 @@ L.OWM.Utils = {
 			, id904: '高温'
 			, id905: '大风'
 			, id906: '冰雹'
+		},
+		
+		CE: {
+			owmlinktitle: '更多信息请访问 OpenWeatherMap'
+			, temperature: '温度 | Temperature'
+			, temp_minmax: '最低/最高 温度 | Temp. min/max '
+			, wind: '风速 | Wind'
+			, gust: '阵风 | Gust'
+			, windforce: '风力 | Wind Force'
+			, direction: '风向 | Direction'
+			, rain_1h: '降雨 |Rain'
+			, humidity: '湿度 | Humidity'
+			, pressure: '气压 | Pressure'
+			
+		// weather conditions, see https://openweathermap.org/weather-conditions
+			, id200: '雷暴和小雨 | Thunderstorm with Light Rain'
+			, id201: '雷暴和中雨 | Thunderstorm with Rain'
+			, id202: '雷暴和大雨 | Thunderstorm with Heavy Rain'
+			, id210: '雷暴(小) | Light Thunderstorm'
+			, id211: '雷暴(中) | Thunderstorm'
+			, id212: '雷暴(大) | Heavy Thunderstorm'
+			, id221: '雷暴(阵) | Ragged Thunderstorm'
+			, id230: '雷暴和毛毛雨(小) | Thunderstorm with Light Drizzle'
+			, id231: '雷暴和毛毛雨(中) | Thunderstorm with Drizzle'
+			, id232: '雷暴和毛毛雨(大) | Thunderstorm with Heavy Drizzle'
+
+			, id300: '毛毛雨(小) | Light Intensity Drizzle'
+			, id301: '毛毛雨(中) | Drizzle'
+			, id302: '毛毛雨(大) | Heavy Intensity Drizzle'
+			, id310: '小雨 | Light Intensity Drizzle Rain'
+			, id311: '中雨 | Drizzle Rain'
+			, id312: '大雨 | Heavy Intensity Drizzle Rain'
+			, id321: '毛毛雨(阵) | Shower Drizzle'
+
+			, id500: '小雨 | Light Rain'
+			, id501: '中雨 | Moderate Rain'
+			, id502: '大雨 | Heavy Intensity Rain'
+			, id503: '暴雨 | Very Heavy Rain'
+			, id504: '大暴雨 | Extreme Rain'
+			, id511: '冻雨 | Freezing Rain'
+			, id520: '阵雨(小) | Light Intensity Shower Rain'
+			, id521: '阵雨(中) | Shower Rain'
+			, id522: '阵雨(大) | Heavy Intensity Shower Rain'
+			
+			, id600: '小雪 | Light Snow'
+			, id601: '中雪 | Snow'
+			, id602: '大雪 | Heavy Snow'
+			, id611: '雨夹雪 | Sleet'
+			, id621: '阵雪 | Shower Snow'
+			, id622: '阵雪(大) | Heavy Shower Snow'
+
+			, id701: '薄雾 | Mist'
+			, id711: '烟雾 | Smole'
+			, id721: '霾 | Haze'
+			, id731: '尘卷风 | Sand/Dust Whirls'
+			, id741: '雾 | Fog'
+			, id751: '沙尘 | Sand'
+
+			, id800: '晴 | Sky is Clear'
+			, id801: '少云 | Few Clouds'
+			, id802: '多云 | Scattered Clouds'
+			, id803: '多云 | Broken Clouds'
+			, id804: '阴 | Overcast Clouds'
+
+			, id900: '龙卷风 | Tornado'
+			, id901: '热带风暴 | Tropical Storm'
+			, id902: '台风 | Hurricane'
+			, id903: '寒潮 | Cold'
+			, id904: '高温 | Hot'
+			, id905: '大风| Windy'
+			, id906: '冰雹| Hail'
 		},
 		
 		it: {
