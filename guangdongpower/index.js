@@ -65,7 +65,7 @@ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Add weather map layers
 
 var winds = L.OWM.wind({opacity: getfillOpacity(),appId: '50fb245848ee7d2c3bc723abd817a15a'});
-var city = L.OWM.current({intervall: 15,useLocalTime: true ,lang:'ch', appId: '50fb245848ee7d2c3bc723abd817a15a'});
+var city = L.OWM.current({intervall: 15,useLocalTime: true ,lang:'CE', appId: '50fb245848ee7d2c3bc723abd817a15a'});
 var precipitation =  L.OWM.precipitationClassic({showLegend: true, opacity: getfillOpacity(), appId: '50fb245848ee7d2c3bc723abd817a15a'});
 
 

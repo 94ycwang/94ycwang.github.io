@@ -243,7 +243,7 @@ L.OWM.Current = L.Layer.extend({
 		showWindSpeed: 'both', // available: 'speed', 'beaufort', 'both'
 		showWindDirection: 'both', // available: 'deg', 'desc', 'both'
 		showTimestamp: true, // available: true, false
-		showTempMinMax: true, // available: true, false
+		showTempMinMax: false, // available: true, false
 		useLocalTime: true, // available: true, false
 		clusterSize: 150,
 		imageUrlCity: 'https://openweathermap.org/img/w/{icon}.png',
