@@ -2153,7 +2153,7 @@ L.OWM.Current = L.Layer.extend({
 		}
 		if (typeof station.dt != 'undefined' && this.options.showTimestamp) {
 			txt += '<div class="owm-popup-timestamp">';
-			txt += '(' + this._convertTimestamp(station.dt) + ')';
+			txt +=  this._convertTimestamp(station.dt);
 			txt += '</div>';
 		}
 		txt += '</div>';
