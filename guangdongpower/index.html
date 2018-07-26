@@ -38,27 +38,29 @@
 <center>
 <body> <!-- Our web map and content will go here -->
 <div class="title">
-  <h1 align="center"><font face="宋体"><font color="white"><font size="+3">电 力 故 障 模 式 预 报 </font></font></font></h1>	
+  <h1 align="center"><font face="宋体"><font color="white"><font size="+3">电 力 故 障 模 式 预 报 </font></font></font>
+  </br>  <align="center"><font face="Book Antiqua"><font color="white"><font size="+1"> Power Outage Model Geoviewer</font></font></font></h1>
+
 </div>
 
 <ul>
-  <li><a class="active" href="index.html"><font size="+1"><strong><i class="fa fa-home"></i> 主页 </a></li>
-  <li><a href="about.html" >关于  </a></li>
-  <li><a href="contact.html">联系我们  </strong></font></a></li>
+  <li><a class="active" href="index.html"><font size="+1"><strong><i class="fa fa-home"></i> <font face="宋体">主页</font> <font face="Book Antiqua">| Home</font> </a></li>
+  <li><a href="about.html" > <font face="宋体">关于     </font><font face="Book Antiqua">| About      </font> </a></li>
+  <li><a href="contact.html"><font face="宋体">联系我们 </font><font face="Book Antiqua">| Contact Us </font> </strong></font></a></li>
 </ul>
 
 
 <div class="container">
-  <div id="list"  align="left"  style="width:200px; height:800px; padding-right: 10px; margin-left: auto; margin-right: auto;float:left;" >    
-	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">天气实况 </font></h3> 
-	<input type="checkbox" id="myCheck1"  onclick="addLayerToMap(this, precipitation)"> <font face="宋体"><font size="+1"><strong>降水量</font>
+  <div id="list"  align="left"  style="width:25%; height:600px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" >    
+	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">天气实况 </font><br><font face="Book Antiqua"><font size="+1">Current Weather</font></font></h3> 
+	<input type="checkbox" id="myCheck1"  onclick="addLayerToMap(this, precipitation)"> <font face="宋体"><font size="+1"><strong>降水量</font></font> <font face="Book Antiqua"> | Precipitation</font>
 	<br></br>	
-	<input type="checkbox" id="myCheck2"  onclick="addLayerToMap(this, winds)"> <font face="宋体"><font size="+1">风速</font>
+	<input type="checkbox" id="myCheck2"  onclick="addLayerToMap(this, winds)">         <font face="宋体"><font size="+1">风速</font></font>           <font face="Book Antiqua"> | Wind Speed</font>
 	<br></br>
-	<input type="checkbox" id="myCheck3"  onclick="addLayerToMap(this, city)"> <font face="宋体"><font size="+1">城市天气</font>
+	<input type="checkbox" id="myCheck3"  onclick="addLayerToMap(this, city)">          <font face="宋体"><font size="+1">城市天气</font></font>       <font face="Book Antiqua"> | City Weather</font>
     <br><br>
     <br><br>
-    <font face="宋体">透明度</font>
+    <font face="宋体">透明度</font><font face="Book Antiqua"> | <font size="-1">Transparency</font></font> <br>
 	<br>
     <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
     <output id="rangevalue">50</output></strong>
@@ -66,7 +68,7 @@
   </div> 
   
   <div id="mapid" align="left"
-  style="width: 1000px; height: 800px; margin-left:0px; margin-right:auto; position:relative; z-index: 1;"></div> 
+  style="width: 74%; height: 600px; margin-left:0px; margin-right:auto; position:relative; z-index: 1;"></div> 
   
 </div>
 </center>
