@@ -25,16 +25,17 @@ var normal = L.layerGroup([normalm, normala]),
 	
 var baseLayers = {
     "地图 | Normal Map": normal,
-    "影像 | Imagery": image,
+    "影像 | Imagery": image
 };
 	
 
 var map = L.map("mapid", {
     center: [20.4, 110.2],
+	layers: [normal],
     zoom: 10,
-    layers: [normal],
     zoomControl: false
 });
+
 
 L.control.zoom({
     zoomInTitle: '放大',
@@ -68,13 +69,17 @@ var winds = L.OWM.wind({opacity: getfillOpacity(),appId: '50fb245848ee7d2c3bc723
 var city = L.OWM.current({intervall: 15,useLocalTime: true ,lang:'CE', appId: '50fb245848ee7d2c3bc723abd817a15a'});
 var precipitation =  L.OWM.precipitationClassic({showLegend: true, opacity: getfillOpacity(), appId: '50fb245848ee7d2c3bc723abd817a15a'});
 
+winds.setZIndex(100);
+precipitation.setZIndex(100);
+normala.setZIndex(102);
+imga.setZIndex(102);
+
 
 
 function addLayerToMap(element, layer) {
 	
     if (element.checked){
 		layer.addTo(map);
-        layer.bringToFront();		
     } else {
 		layer.remove();					
 	};
@@ -87,6 +92,7 @@ function getfillOpacity() {
 $('#layeropacity').on('input', function (value) {
     winds.setOpacity($(this).val() * '.01');
 	precipitation.setOpacity($(this).val() * '.01');
+
 });
 
 //
@@ -96,4 +102,3 @@ function Get(yourUrl){
     Httpreq.send(null);
     return Httpreq.responseText;          
 };
-
