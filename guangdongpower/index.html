@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
       integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
       crossorigin=""/>
-	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="HPOM/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Add the Leaflet JavaScript library(we keep this at bottom so page loads faster) -->
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
@@ -21,18 +21,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
   <!-- Load Shapefile -->
     <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
-    <script src="https://94ycwang.github.io/guangdongpower/HPOM/leaflet.shpfile.js"></script>	
+    <script src="HPOM/leaflet.shpfile.js"></script>	
   <!-- Load D3 -->
 	<script src="https://d3js.org/d3.v5.js"></script>
   <!-- Load jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <!-- Load maprint -->
-    <script src="https://94ycwang.github.io/guangdongpower/HPOM/bundle.js"></script>
+    <script src="HPOM/bundle.js"></script>
   <!-- Load Chinese map-->
-    <script src="https://94ycwang.github.io/guangdongpower/HPOM/leaflet.ChineseTmsProviders.js"></script>
+    <script src="HPOM/leaflet.ChineseTmsProviders.js"></script>
   <!-- Load Open Weather Map-->
-    <link rel="stylesheet" href="leaflet-openweathermap.css" />
-	<script src="https://94ycwang.github.io/guangdongpower/HPOM/leaflet-openweathermap.js"></script>	
+    <link rel="stylesheet" href="HPOM/leaflet-openweathermap.css" />
+	<script src="HPOM/leaflet-openweathermap.js"></script>
+  <!-- Load Home Button-->
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="HPOM/leaflet.zoomhome.css"/>
+    <script src="HPOM/leaflet.zoomhome.min.js"></script>
 </head>
 
 <center>
@@ -42,33 +46,36 @@
   </br>  <align="center"><font face="Book Antiqua"><font color="white"><font size="+1"> Power Outage Model Geoviewer</font></font></font></h1>
 
 </div>
-
+<div style="min-width:600px;">
 <ul>
   <li><a class="active" href="index.html"><font size="+1"><strong><i class="fa fa-home"></i> <font face="宋体">主页</font> <font face="Book Antiqua">| Home</font> </a></li>
   <li><a href="about.html" > <font face="宋体">关于     </font><font face="Book Antiqua">| About      </font> </a></li>
   <li><a href="contact.html"><font face="宋体">联系我们 </font><font face="Book Antiqua">| Contact Us </font> </strong></font></a></li>
 </ul>
-
+</div>
 
 <div class="container">
-  <div id="list"  align="left"  style="width:25%; height:600px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" >    
+    <div id="list"  align="left"  style="width:25%; height:600px;min-width:300px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" > 
 	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">天气实况 </font><br><font face="Book Antiqua"><font size="+1">Current Weather</font></font></h3> 
-	<input type="checkbox" id="myCheck1"  onclick="addLayerToMap(this, precipitation)"> <font face="宋体"><font size="+1"><strong>降水量</font></font> <font face="Book Antiqua"> | Precipitation</font>
+	<input type="checkbox" id="myCheck1"  onclick="addLayerToMap(this, precipitation)"> <font size="3"><font face="宋体"><strong>降水量</font> <font face="Book Antiqua"> | Precipitation</font>
 	<br></br>	
-	<input type="checkbox" id="myCheck2"  onclick="addLayerToMap(this, winds)">         <font face="宋体"><font size="+1">风速</font></font>           <font face="Book Antiqua"> | Wind Speed</font>
+	<input type="checkbox" id="myCheck2"  onclick="addLayerToMap(this, winds)">                        <font face="宋体">风速</font>           <font face="Book Antiqua"> | Wind Speed</font>
 	<br></br>
-	<input type="checkbox" id="myCheck3"  onclick="addLayerToMap(this, city)">          <font face="宋体"><font size="+1">城市天气</font></font>       <font face="Book Antiqua"> | City Weather</font>
+	<input type="checkbox" id="myCheck3"  onclick="addLayerToMap(this, city)">                         <font face="宋体">城市天气</font>       <font face="Book Antiqua"> | City Weather</font></font>
     <br><br>
-    <br><br>
-    <font face="宋体">透明度</font><font face="Book Antiqua"> | <font size="-1">Transparency</font></font> <br>
-	<br>
+    
+	<font size="-1"><font face="宋体">透明度</font><font face="Book Antiqua"> <font size="-1">| Transparency</font></font><br></font>
     <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
     <output id="rangevalue">50</output></strong>
-    
+	
+    <h3 style="color:#bb0000"> <font face="宋体"><font size="+2">台风实况 </font><br><font face="Book Antiqua"><font size="+1">Current Typhoon</font></font></h3>   
+    <div id="number"><strong><font face="宋体">当前台风数</font><font face="Book Antiqua"> | Number of Typhoons : NaN</div></font></strong><br>
+	<div id="typhoonlist"><strong><font face="宋体">当前台风列表</font><font face="Book Antiqua"> | List of Typhoons :</div></font></strong><br>
+	
   </div> 
   
   <div id="mapid" align="left"
-  style="width: 74%; height: 600px; margin-left:0px; margin-right:auto; position:relative; z-index: 1;"></div> 
+  style=" height: 600px; margin-left:0px; margin-right:auto; position:relative; z-index: 1;"></div> 
   
 </div>
 </center>
