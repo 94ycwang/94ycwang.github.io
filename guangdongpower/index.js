@@ -119,7 +119,7 @@ var result = null;
 	
 $.ajax({
     type: 'post',
-    url: 'http://route.showapi.com/342-1',
+    url: 'https://route.showapi.com/342-1',
     dataType: 'json',
 	async :false, 
     data: {
