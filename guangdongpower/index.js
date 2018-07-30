@@ -155,17 +155,17 @@ for (var i = 0; i < result.showapi_res_body.list.length; i++) {
                  {icon: TyphoonIcon}).addTo(map).bindPopup(
 				 "<b><font size=4>"+result.showapi_res_body.list[i].name+' | </b>'+result.showapi_res_body.list[i].enname+"  "+result.showapi_res_body.list[i].tfid+"</font><br>"+
 		         "中心位置 | Center : " + result.showapi_res_body.list[i].lat + "N/" + result.showapi_res_body.list[i].lng + "E<br>"+
-		         "台风等级 | Strength: "+result.showapi_res_body.list[i].power+"<br>"+
+		         "台风等级 | Typhoon Classification: "+result.showapi_res_body.list[i].strong+"<br>"+
 		         "最大风速 | Maximum Wind Speed: "+result.showapi_res_body.list[i].speed+"m/s<br>"+
+				 "风力等级 | Wind Force: "+result.showapi_res_body.list[i].power+"<br>"+ 
 		         "移动方向 | Moving Direction: "+result.showapi_res_body.list[i].movedirection+"<br>"+
 		         "移动速度 | Moving Speed: "+result.showapi_res_body.list[i].movespeed+"km/h<br>"+
 		         "中心气压 | Pressure: "+result.showapi_res_body.list[i].pressure+"hPa<br>"+
-		         "十级风力影响半径 | Influence Radius (Beaufort Number:10): "+result.showapi_res_body.list[i].radius10+"km<br>"+
 		         "七级风力影响半径 | Influence Radius (Beaufort Number:7): "+result.showapi_res_body.list[i].radius7+"km<br>"+ 
-		         "更新时间 | Update Time: "+result.showapi_res_body.list[i].time+"<br>"			
+		         "更新时间 | Update Time: "+result.showapi_res_body.list[i].time+"<br>"					 
 	            ,{maxWidth : 560
 				});
-				
+						
 	 x[i] = document.createElement("INPUT");
      x[i].setAttribute("type", "checkbox");
 	 x[i].num =i;
