@@ -44,7 +44,21 @@ var zoomHome = L.Control.zoomHome({
 }).addTo(map);	
 		
 
-var counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/guangdong.zip',{style:style}).addTo(map);
+var counties = new L.Shapefile('HPOM/guangdong.zip',{
+	            style:style, 
+				onEachFeature: onEachFeature
+}).addTo(map);
+
+console.log(counties);
+
+function onEachFeature(feature, layer) {
+	 var listitem = document.createElement("li");
+	 listitem .id = layer.feature.properties.ID_3;
+	 layer.bindPopup(listitem .id );
+
+};
+ 
+
 
 function style(feature) {
     return {
@@ -60,9 +74,6 @@ var overlayMaps = {
 
 L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
-
-var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 18, attribution: '[insert correct attribution here!]' });
 
 // Add weather map layers
 
