@@ -53,7 +53,7 @@ console.log(counties);
 
 function onEachFeature(feature, layer) {
 	 var listitem = document.createElement("li");
-	 listitem .id = layer.feature.properties.ID_3;
+	 listitem .id = layer.feature.properties.NL_NAME_3 + ' | ' +layer.feature.properties.NAME_34;
 	 layer.bindPopup(listitem .id );
 
 };
