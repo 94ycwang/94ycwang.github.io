@@ -44,7 +44,7 @@ var zoomHome = L.Control.zoomHome({
 }).addTo(map);	
 		
 
-var counties = new L.Shapefile('HPOM/guangdong.zip',{
+var counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/guangdong.zip',{
 	            style:style, 
 				onEachFeature: onEachFeature
 }).addTo(map);
