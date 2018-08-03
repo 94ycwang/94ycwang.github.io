@@ -245,7 +245,7 @@ for (var i = 1;  i< 1555; i++) {
 	var lat2 = result[3];
 	var lon2 = result[4]; 
 	
-console.log([lat1,lon1]);
+console.log(result);
 console.log([lat2,lon2]);	
     var bounds = [
         [lat1, lon1],
