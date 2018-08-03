@@ -70,7 +70,7 @@ var overlayMaps = {
 	"县级行政区 | Counties": counties
 };
 
-L.control.layers(baseLayers,overlayMaps,{collapsed:false,position: 'bottomleft'}).addTo(map);
+L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
 
 // Checkbox control
@@ -238,12 +238,12 @@ for (var i = 0; i < jsonObject.length; i++) {
 };
 
 rectangle = {};
-for (var i = 1;  i< 2; i++) {
+for (var i = 1;  i< 1555; i++) {
     result= csvData[i];
-	var lat1 = result[3];
-	var lon1 = result[4];
-	var lat2 = result[5];
-	var lon2 = result[6];
+	var lat1 = result[1];
+	var lon1 = result[2];
+	var lat2 = result[3];
+	var lon2 = result[4];
 	console.log([lat2, lon2]);
 	
     var bounds = [
@@ -256,3 +256,4 @@ for (var i = 1;  i< 2; i++) {
     rectangle[i]=L.rectangle(bounds, {color: "#ff7800", weight: 1});
     group.addLayer(rectangle[i]);
 };
+group.addTo(map);
