@@ -49,8 +49,6 @@ var counties = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/g
 				onEachFeature: onEachFeature
 }).addTo(map);
 
-console.log(counties);
-
 function onEachFeature(feature, layer) {
 	 var listitem = document.createElement("li");
 	 listitem .id = layer.feature.properties.NL_NAME_3 + ' | ' +layer.feature.properties.NAME_34;
@@ -72,7 +70,18 @@ var overlayMaps = {
 	"县级行政区 | Counties": counties
 };
 
-L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
+L.control.layers(baseLayers,overlayMaps,{collapsed:false,position: 'bottomleft'}).addTo(map);
+
+
+// Checkbox control
+function addLayerToMap(element, layer) {
+	
+    if (element.checked){
+		layer.addTo(map);
+    } else {
+		layer.remove();					
+	};
+};
 
 
 // Add weather map layers
@@ -86,14 +95,6 @@ precipitation.setZIndex(100);
 normala.setZIndex(102);
 imga.setZIndex(102);
 
-function addLayerToMap(element, layer) {
-	
-    if (element.checked){
-		layer.addTo(map);
-    } else {
-		layer.remove();					
-	};
-};
 
 // Opacity Slider
 function getfillOpacity() {
@@ -182,31 +183,31 @@ for (var i = 0; i < result.showapi_res_body.list.length; i++) {
 	 x[i].num =i;
 	 if(i==0){
             x[i].setAttribute("onchange", "ZoomToTyphoon(x[0])");
-            document.getElementById("list").appendChild(x[0]);
+            document.getElementById("typhoonlist").appendChild(x[0]);
 	 };
 	 if(i==1){
             x[i].setAttribute("onchange", "ZoomToTyphoon(x[1])");
-            document.getElementById("list").appendChild(x[1]);
+            document.getElementById("typhoonlist").appendChild(x[1]);
 	 };
 	 if(i==2){
             x[i].setAttribute("onchange", "ZoomToTyphoon(x[2])");
-            document.getElementById("list").appendChild(x[2]);
+            document.getElementById("typhoonlist").appendChild(x[2]);
 	 };
 	 if(i==3){
             x[i].setAttribute("onchange", "ZoomToTyphoon(x[3])");
-            document.getElementById("list").appendChild(x[3]);
+            document.getElementById("typhoonlist").appendChild(x[3]);
 	 };
 	 if(i==4){
             x[i].setAttribute("onchange", "ZoomToTyphoon(x[4])");
-            document.getElementById("list").appendChild(x[4]);
+            document.getElementById("typhoonlist").appendChild(x[4]);
 	 };
      text1[i] = document.createElement('a');
-     document.getElementById("list").appendChild(text1[i]);
+     document.getElementById("typhoonlist").appendChild(text1[i]);
      text1[i].innerHTML= ' ' + result.showapi_res_body.list[i].name+' ';
      text1[i].style='font:16px 宋体;font-weight:bold'
 	 text2[i] = document.createElement('a');
-     document.getElementById("list").appendChild(text2[i]);
-     text2[i].innerHTML= '| '+result.showapi_res_body.list[i].enname+"  "+result.showapi_res_body.list[i].tfid;
+     document.getElementById("typhoonlist").appendChild(text2[i]);
+     text2[i].innerHTML= '| '+result.showapi_res_body.list[i].enname+"  "+result.showapi_res_body.list[i].tfid+"<br>";
      text2[i].style='font: 16px Book Antiqua; font-weight:bold;'
 };
 
@@ -222,4 +223,31 @@ function ZoomToTyphoon(element) {
     } else {
 		Typhoon[element.num].remove();					
 	};
+};
+
+//
+var url = "https://94ycwang.github.io/guangdongpower/HPOM/grid.csv";
+group = new L.FeatureGroup();
+var request = new XMLHttpRequest();  
+request.open("GET", url, false);   
+request.send(null);  
+var csvData = new Array();
+var jsonObject = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObject.length; i++) {
+  csvData.push(jsonObject[i].split(','));
+};
+result= csvData[0];
+console.log(result);
+rectangle = {};
+
+for (var i = 0;  i< 1556; j++) {
+ //var bounds = [
+ //      [20.49, 110+i*0.01],
+ //      [20.49, 110.01+i*0.01],
+ //      [20.5, 110.01+i*0.01],
+//    [20.5, 110+i*0.01],
+//    [20.*0.01, 110+i*0.01]
+ //  ];
+   //rectangle[i]=L.rectangle(bounds, {color: "#ff7800", weight: 1});
+    //roup.addLayer(rectangle[i]);
 };

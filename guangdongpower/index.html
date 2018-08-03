@@ -55,7 +55,15 @@
 </div>
 
 <div class="container">
-    <div id="list"  align="left"  style="width:25%; height:600px;min-width:300px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" > 
+    <div id="list"  align="left"  style="width:25%; height:700px;min-width:300px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" > 
+	
+	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">电力故障预报 </font><br><font face="Book Antiqua"><font size="+1">Outage Prediction</font></font></h3>   
+	<input type="checkbox" id="POP1"  onclick="addLayerToMap(this,group)"> <font size="3"><font face="宋体"><strong>待定</font> <font face="Book Antiqua"> | something</font>
+	<br><br>
+	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">台风实况 </font><br><font face="Book Antiqua"><font size="+1">Current Typhoon</font></font></h3>   
+    <div id="number"><strong><font face="宋体">当前台风数</font><font face="Book Antiqua"> | Number of Typhoons : NaN</div></font></strong><br>
+	<div id="typhoonlist"><strong><font face="宋体">当前台风列表</font><font face="Book Antiqua"> | List of Typhoons :<br><br></div></font></strong>
+    <br>
 	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">天气实况 </font><br><font face="Book Antiqua"><font size="+1">Current Weather</font></font></h3> 
 	<input type="checkbox" id="myCheck1"  onclick="addLayerToMap(this, precipitation)"> <font size="3"><font face="宋体"><strong>降水量</font> <font face="Book Antiqua"> | Precipitation</font>
 	<br></br>	
@@ -68,14 +76,11 @@
     <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
     <output id="rangevalue">50</output></strong>
 	
-    <h3 style="color:#bb0000"> <font face="宋体"><font size="+2">台风实况 </font><br><font face="Book Antiqua"><font size="+1">Current Typhoon</font></font></h3>   
-    <div id="number"><strong><font face="宋体">当前台风数</font><font face="Book Antiqua"> | Number of Typhoons : NaN</div></font></strong><br>
-	<div id="typhoonlist"><strong><font face="宋体">当前台风列表</font><font face="Book Antiqua"> | List of Typhoons :</div></font></strong><br>
 	
   </div> 
   
   <div id="mapid" align="left"
-  style=" height: 600px; margin-left:0px; margin-right:auto; position:relative; z-index: 1;"></div> 
+  style=" height: 700px; margin-left:0px; margin-right:auto; position:relative; z-index: 1;"></div> 
   
 </div>
 </center>
