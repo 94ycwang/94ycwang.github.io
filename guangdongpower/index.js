@@ -246,7 +246,6 @@ for (var i = 1;  i< 1555; i++) {
 	var lon2 = result[4]; 
 	
 console.log(result);
-console.log([lat2,lon2]);	
     var bounds = [
         [lat1, lon1],
         [lat2, lon1],
@@ -254,22 +253,19 @@ console.log([lat2,lon2]);
         [lat1, lon2],
         [lat1, lon1]
     ];
-    rectangle[i]=L.rectangle(bounds, {style:POPstyle(result[5])}).bindPopup(i);
+    rectangle[i]=L.rectangle(bounds, {
+		weight: 0.8,
+		fillColor: getColor(result[5]), 
+		color: 'gray'
+    }).bindPopup(i);
     group.addLayer(rectangle[i]);
 };
 group.addTo(map);
 
 
-function POPstyle(percent) {
-    return {
-        fillColor: getColor(percent),
-        weight: 1,
-        color: getColor(percent),
-    };
-};
 
 // Change color
-	function getColor(d) {
+function getColor(d) {
     return d > 60  ? '#800026' :
            d > 50  ? '#BD0026' :
            d > 40  ? '#E31A1C' :
