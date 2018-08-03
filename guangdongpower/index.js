@@ -237,25 +237,20 @@ for (var i = 0; i < jsonObject.length; i++) {
   csvData.push(jsonObject[i].split(','));
 };
 
-console.log(result);
 rectangle = {};
-
-for (var i = 1;  i< 1557; i++) {
+for (var i = 1;  i< 2; i++) {
     result= csvData[i];
-	var lat1 = result[3].value;
-	var lon1 = result[3].value;
-	var lat2 = result[5].value;
-	var lon2 = result[6].value;
-	var lat3 = result[7].value;
-	var lon3 = result[8].value;
-	var lat4 = result[9].value;
-	var lon4 = result[10].value;
+	var lat1 = result[3];
+	var lon1 = result[4];
+	var lat2 = result[5];
+	var lon2 = result[6];
+	console.log([lat1, lon1]);
 	
     var bounds = [
         [lat1, lon1],
+        [lat2, lon1],
         [lat2, lon2],
-        [lat3, lon3],
-        [lat4, lon4],
+        [lat1, lon2],
         [lat1, lon1]
     ];
     rectangle[i]=L.rectangle(bounds, {color: "#ff7800", weight: 1});
