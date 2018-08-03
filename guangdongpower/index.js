@@ -244,8 +244,7 @@ for (var i = 1;  i< 1555; i++) {
 	var lon1 = result[2];
 	var lat2 = result[3];
 	var lon2 = result[4]; 
-	
-console.log(result);
+
     var bounds = [
         [lat1, lon1],
         [lat2, lon1],
@@ -257,12 +256,12 @@ console.log(result);
 		weight: 0.8,
 		fillColor: getColor(result[5]), 
 		color: 'gray'
-    }).bindPopup(i);
+    }).bindPopup();
     group.addLayer(rectangle[i]);
 };
-group.addTo(map);
 
 
+console.log(group);
 
 // Change color
 function getColor(d) {
