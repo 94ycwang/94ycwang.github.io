@@ -1,5 +1,4 @@
 
-//******************************************* Map HPOM output with hover-over function ******************************************
 // Set variable for map and initialize
 
 
@@ -73,17 +72,6 @@ var overlayMaps = {
 L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
 
-// Checkbox control
-function addLayerToMap(element, layer) {
-	
-    if (element.checked){
-		layer.addTo(map);
-    } else {
-		layer.remove();					
-	};
-};
-
-
 // Add weather map layers
 
 var winds = L.OWM.wind({opacity: getfillOpacity(),appId: '50fb245848ee7d2c3bc723abd817a15a'});
@@ -95,6 +83,132 @@ precipitation.setZIndex(100);
 normala.setZIndex(102);
 imga.setZIndex(102);
 
+// Checkbox control 1
+function addLayerToMap(element, layer) {
+	
+    if (element.checked){
+		layer.addTo(map);
+    } else {
+		layer.remove();					
+	};
+};
+
+
+//
+var url = "https://94ycwang.github.io/guangdongpower/HPOM/grid.csv";
+group = new L.FeatureGroup();
+var request = new XMLHttpRequest();  
+request.open("GET", url, false);   
+request.send(null);  
+var csvData = new Array();
+var jsonObject = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObject.length; i++) {
+  csvData.push(jsonObject[i].split(','));
+};
+
+// Create necessary panes in correct order (i.e. "bottom-most" first).
+map.createPane("POP");
+rectangle = {};
+for (var i = 1;  i< 1555; i++) {
+    result= csvData[i];
+	var lat1 = result[3];
+	var lon1 = result[4];
+	var lat2 = result[5];
+	var lon2 = result[6]; 
+
+    var bounds = [
+        [lat1, lon1],
+        [lat2, lon1],
+        [lat2, lon2],
+        [lat1, lon2],
+        [lat1, lon1]
+    ];
+    rectangle[i]=L.rectangle(bounds, {
+		weight: 0.8,
+		fillColor: getColor(result[7]), 
+		color: 'gray',
+		fillOpacity: getfillOpacity(),
+		pane: "POP"
+    }).bindPopup(
+	   "网格中心 | Grid Center : "+result[1]+"N/"+result[2]+"E<br>"+
+	   "编号 | ID : "+result[0]+"<br>"+
+	   "百分比 | Percentage : "+result[7]+"%"
+	  );
+    group.addLayer(rectangle[i]);
+};
+map.getPane('POP').style.zIndex = 600;
+group.addTo(map);
+
+
+Layers=group.getLayers();
+for (var i = 0;  i< 1554; i++) {
+    Layers[i].on('mouseover', function(e) {
+        var layer = e.target;
+        layer.setStyle({
+            color: 'black',
+            opacity: 1,
+            weight: 2.5
+        });
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+    });
+	Layers[i].on('mouseout', function(e) {
+        var layer = e.target;
+        layer.setStyle({
+            color: 'gray',
+            opacity: 1,
+            weight: 0.8
+        });
+    });
+	
+};	
+
+
+function getColor(d) {
+    return d > 60  ? '#800026' :
+           d > 50  ? '#BD0026' :
+           d > 40  ? '#E31A1C' :
+           d > 30  ? '#FC4E2A' :
+           d > 20  ? '#FD8D3C' :
+           d > 10  ? '#FEB24C' :
+                     '#FFEDA0' ;
+};	
+
+//
+
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+    grades = [0, 10, 20, 30, 40, 50, 60],
+    labels = [];
+    // Loop through our percentage intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] +'%'+'<br>' :'%+');
+    }
+    return div;
+};
+legend.addTo(map);
+
+
+
+
+
+
+
+// Checkbox control 2
+function addLayerToMap2(element, layer) {
+	
+    if (element.checked){
+		layer.addTo(map);
+		legend.addTo(map);
+    } else {
+		layer.remove();
+        legend.remove(map);		
+	};
+};
 
 // Opacity Slider
 function getfillOpacity() {
@@ -103,6 +217,7 @@ function getfillOpacity() {
 $('#layeropacity').on('input', function (value) {
     winds.setOpacity($(this).val() * '.01');
 	precipitation.setOpacity($(this).val() * '.01');
+	group.setStyle({fillOpacity: $(this).val() * '.01'});
 });
 
 // Get Typhoon Location
@@ -224,52 +339,3 @@ function ZoomToTyphoon(element) {
 		Typhoon[element.num].remove();					
 	};
 };
-
-//
-var url = "https://94ycwang.github.io/guangdongpower/HPOM/grid.csv";
-group = new L.FeatureGroup();
-var request = new XMLHttpRequest();  
-request.open("GET", url, false);   
-request.send(null);  
-var csvData = new Array();
-var jsonObject = request.responseText.split(/\r?\n|\r/);
-for (var i = 0; i < jsonObject.length; i++) {
-  csvData.push(jsonObject[i].split(','));
-};
-
-rectangle = {};
-for (var i = 1;  i< 1555; i++) {
-    result= csvData[i];
-	var lat1 = result[1];
-	var lon1 = result[2];
-	var lat2 = result[3];
-	var lon2 = result[4]; 
-
-    var bounds = [
-        [lat1, lon1],
-        [lat2, lon1],
-        [lat2, lon2],
-        [lat1, lon2],
-        [lat1, lon1]
-    ];
-    rectangle[i]=L.rectangle(bounds, {
-		weight: 0.8,
-		fillColor: getColor(result[5]), 
-		color: 'gray'
-    }).bindPopup();
-    group.addLayer(rectangle[i]);
-};
-
-
-console.log(group);
-
-// Change color
-function getColor(d) {
-    return d > 60  ? '#800026' :
-           d > 50  ? '#BD0026' :
-           d > 40  ? '#E31A1C' :
-           d > 30  ? '#FC4E2A' :
-           d > 20  ? '#FD8D3C' :
-           d > 10  ? '#FEB24C' :
-                     '#FFEDA0' ;
-};	
