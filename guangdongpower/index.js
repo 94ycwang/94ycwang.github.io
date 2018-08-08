@@ -132,8 +132,10 @@ for (var i = 1;  i< 1555; i++) {
     }).bindPopup(
 	   "网格中心 | Grid Center : "+result[1]+"N/"+result[2]+"E<br>"+
 	   "编号 | ID : "+result[0]+"<br>"+
-	   "百分比 | Percentage : "+result[7]+"%"
+	   "百分比 | Percentage : "+result[7]+"%<br>"+
+	   "更新时间 | Update Time : 08/07 2018"
 	  );
+	rectangle[i].ID = result[0];
     group.addLayer(rectangle[i]);
 };
 map.getPane('POP').style.zIndex = 600;
@@ -175,8 +177,28 @@ function getColor(d) {
                      '#FFEDA0' ;
 };	
 
-//
 
+
+// Search by ID
+
+function search(){
+	var flag = 0;
+	x = document.getElementById("ID").value;
+	for (var i = 0;  i< 1554; i++) {
+      if (x===Layers[i].ID) {
+		  Layers[i].openPopup();
+		  flag =1;
+        };		
+    };
+	
+	if(flag ===0){
+		alert('ID输入错误 | No ID found');
+	}
+
+};	
+
+
+//
 var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
@@ -191,10 +213,6 @@ legend.onAdd = function (map) {
     return div;
 };
 legend.addTo(map);
-
-
-
-
 
 
 
@@ -339,3 +357,5 @@ function ZoomToTyphoon(element) {
 		Typhoon[element.num].remove();					
 	};
 };
+
+
