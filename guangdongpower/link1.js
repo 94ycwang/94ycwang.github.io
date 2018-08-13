@@ -66,6 +66,19 @@ function style(feature) {
 };
 
 
+// Read Outage Prediction csv
+var urltrack = "https://94ycwang.github.io/guangdongpower/HPOM/MUJIGAE.csv";
+group = new L.FeatureGroup();
+var request = new XMLHttpRequest();  
+request.open("GET", urltrack, false);   
+request.send(null);  
+var csvDatatrack = new Array();
+var jsonObjecttrack = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObjecttrack.length; i++) {
+  csvDatatrack.push(jsonObjecttrack[i].split(','));
+};
+
+console.log(csvDatatrack);
 var pointA = new L.LatLng(28.635308, 77.22496);
 var pointB = new L.LatLng(28.984461, 77.70641);
 var pointList = [pointA, pointB];
@@ -109,7 +122,7 @@ function addLayerToMap(element, layer) {
 };
 
 
-//
+// Read Outage Prediction csv
 var url = "https://94ycwang.github.io/guangdongpower/HPOM/grid.csv";
 group = new L.FeatureGroup();
 var request = new XMLHttpRequest();  
@@ -195,7 +208,6 @@ function getColor(d) {
 
 
 // Search by ID
-
 function search(){
 	var flag = 0;
 	x = document.getElementById("ID").value;
@@ -213,7 +225,7 @@ function search(){
 };	
 
 
-//
+// Add legend
 var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
