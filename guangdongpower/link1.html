@@ -52,7 +52,7 @@
   <li class="dropdown">
     <a href="javascript:void(0)" class="active"><font face="宋体">历史台风     </font><font face="Book Antiqua">| Historical Typhoons </font></a>
     <div class="dropdown-content">
-      <a href="link1.html">Link 1</a>
+      <a href="link1.html"><font face="宋体">2015 彩虹</font> <font face="Book Antiqua">| MUJIGAE</font></a>
       <a href="#">Link 2</a>
       <a href="#">Link 3</a>
     </div>
@@ -65,15 +65,29 @@
 
 <div class="container">
     <div id="list"  align="left"  style="width:25%; height:700px;min-width:300px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" > 
+	<h3> <font size="+2"><font face="宋体">2015 彩虹</font> <font face="Book Antiqua">| MUJIGAE</font></font> </h3>
+	<br>
+	<span style="color:#bb0000"> <font face="宋体"><strong>电力故障预报 </font><font face="Book Antiqua"> | Outage Prediction</font></font></span>   
+	<br><br>
+	<input type="checkbox" id="POP1"  checked =true onclick="addLayerToMap2(this,group)"> <font size="3"><font face="宋体">百分比</font> <font face="Book Antiqua"> | Percentage</font>
+	<br><br><br>
+	<span style="color:#bb0000; display: inline-block;"><font face="宋体">预报时次</font><font face="Book Antiqua"> | Prediction Time  <br></font></span>
+	<select>
+        <option value="1">10-3 0:00</option>
+        <option value="2">10-3 6:00</option>
+        <option value="3">10-3 12:00</option>
+        <option value="4">10-4 0:00</option>
+		<option value="5">10-5 6:00</option>
+    </select>
+	<br><br><br>
 	
-	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">电力故障预报 </font><br><font face="Book Antiqua"><font size="+1">Outage Prediction</font></font></h3>   
-	<input type="checkbox" id="POP1"  checked =true onclick="addLayerToMap2(this,group)"> <font size="3"><font face="宋体"><strong>百分比</font> <font face="Book Antiqua"> | Percentage</font>
+	
+	<span style="color:#bb0000"><font face="宋体">透明度</font><font face="Book Antiqua"> | Transparency<br></font></span>
+    <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
+    <output id="rangevalue">50</output>
 	<br><br>
 	
-	<h4 style="color:#bb0000"><font face="宋体">透明度</font><font face="Book Antiqua"> | Transparency<br></font></h4>
-    <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
-    <output id="rangevalue">50</output></strong>
-	<h4 style="color:#bb0000"><font face="宋体">格点查询</font><font face="Book Antiqua"> | Search By ID<br></font></h4>
+	<span style="color:#bb0000"><font face="宋体">格点查询</font><font face="Book Antiqua"> | Search By ID<br></font></span></strong>
 	<input id="ID" type="text" placeholder="请输入格点 ID" name="search" style="font-size: 14px; border: 1.2px solid grey;">
     <button type="button" onclick="search()" ><i class="fa fa-search"></i></button>
 	

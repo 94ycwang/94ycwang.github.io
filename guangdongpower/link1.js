@@ -78,19 +78,47 @@ for (var i = 0; i < jsonObjecttrack.length; i++) {
   csvDatatrack.push(jsonObjecttrack[i].split(','));
 };
 
-
-
 var point={};
 var pointList = [];
+var circle ={};
+cirgroup = new L.FeatureGroup();
+map.createPane("track");
 for (var i = 1; i < jsonObjecttrack.length-1; i++) {
 	result   = csvDatatrack[i];   
 	var lat  = result[8];
 	var lon  = result[9];
 	point[i] = new L.LatLng([lat], [lon]);
 	pointList.push(point[i]);
+	
+	circle[i] = L.circle([lat, lon], {
+		color: 'green',
+        opacity: 0.8,
+        weight: 20,
+		pane: "track"
+    }).bindPopup(
+	   "中心位置 | Center : " + lat + "N/" + lon + "E<br>"+
+	   "时间 | Time : "+ result[6]
+	  );
+    circle[i].on('mouseover', function (e) {
+        this.openPopup();
+		this.setStyle({
+            color: 'gray',
+            opacity: 1,
+            weight: 30
+        });
+    });
+    circle[i].on('mouseout', function (e) {
+        this.closePopup();
+		this.setStyle({
+            color: 'green',
+            opacity: 0.8,
+            weight: 20
+        });
+    });	  
+    cirgroup.addLayer(circle[i]);
 };
-console.log(pointList);
 
+map.getPane('track').style.zIndex = 601;
 
 var polyline = new L.Polyline(pointList, {
     color: 'red',
@@ -98,19 +126,15 @@ var polyline = new L.Polyline(pointList, {
     opacity: 0.5,
     smoothFactor: 1
 });
-var circle = new L.circle(pointList, {
-    color: 'red',
-    fillColor: 'blue',
-    fillOpacity: 1,
-    //radius: 500
-}).addTo(map);
-circle.addTo(map);
-polyline.addTo(map);
 
-//var best_track = L.layerGroup([circle, polyline]);
+
+
+var best_track = L.layerGroup([cirgroup, polyline]);
+best_track.setZIndex(601);
+best_track.addTo(map);
 var overlayMaps = {
 	"县级行政区 | Counties": counties,
-	//"台风路径 | Typhoon Best Track": best_track
+	"台风路径 | Typhoon Best Track": best_track
 };
 
 L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
