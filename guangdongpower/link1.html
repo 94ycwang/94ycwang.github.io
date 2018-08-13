@@ -48,9 +48,9 @@
 </div>
 <div style="min-width:600px;">
 <ul>
-  <li><a class="active" href="index.html"><font size="+1"><strong><i class="fa fa-home"></i> <font face="宋体">主页</font> <font face="Book Antiqua">| Home</font> </a></li>
+  <li><a href="index.html"><font size="+1"><strong><i class="fa fa-home"></i> <font face="宋体">主页</font> <font face="Book Antiqua">| Home</font> </a></li>
   <li class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn"><font face="宋体">历史台风     </font><font face="Book Antiqua">| Historical Typhoons </font></a>
+    <a href="javascript:void(0)" class="active"><font face="宋体">历史台风     </font><font face="Book Antiqua">| Historical Typhoons </font></a>
     <div class="dropdown-content">
       <a href="link1.html">Link 1</a>
       <a href="#">Link 2</a>
@@ -69,17 +69,7 @@
 	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">电力故障预报 </font><br><font face="Book Antiqua"><font size="+1">Outage Prediction</font></font></h3>   
 	<input type="checkbox" id="POP1"  checked =true onclick="addLayerToMap2(this,group)"> <font size="3"><font face="宋体"><strong>百分比</font> <font face="Book Antiqua"> | Percentage</font>
 	<br><br>
-	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">台风实况 </font><br><font face="Book Antiqua"><font size="+1">Current Typhoon</font></font></h3>   
-    <div id="number"><strong><font face="宋体">当前台风数</font><font face="Book Antiqua"> | Number of Typhoons : NaN</div></font></strong><br>
-	<div id="typhoonlist"><strong><font face="宋体">当前台风列表</font><font face="Book Antiqua"> | List of Typhoons :<br><br></div></font></strong>
-    <br>
-	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">天气实况 </font><br><font face="Book Antiqua"><font size="+1">Current Weather</font></font></h3> 
-	<input type="checkbox" id="myCheck1"  onclick="addLayerToMap(this, precipitation)"> <font size="3"><font face="宋体"><strong>降水量</font> <font face="Book Antiqua"> | Precipitation</font>
-	<br></br>	
-	<input type="checkbox" id="myCheck2"  onclick="addLayerToMap(this, winds)">                        <font face="宋体">风速</font>           <font face="Book Antiqua"> | Wind Speed</font>
-	<br></br>
-	<input type="checkbox" id="myCheck3"  onclick="addLayerToMap(this, city)">                         <font face="宋体">城市天气</font>       <font face="Book Antiqua"> | City Weather</font></font>
-    <br><br>
+	
 	<h4 style="color:#bb0000"><font face="宋体">透明度</font><font face="Book Antiqua"> | Transparency<br></font></h4>
     <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
     <output id="rangevalue">50</output></strong>
@@ -96,7 +86,7 @@
 </center>
 
 
-<script type="text/javascript"src="index.js"></script>
+<script type="text/javascript"src="link1.js"></script>
 
 </body>
 
