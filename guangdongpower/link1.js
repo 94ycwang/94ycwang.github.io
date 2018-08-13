@@ -78,10 +78,19 @@ for (var i = 0; i < jsonObjecttrack.length; i++) {
   csvDatatrack.push(jsonObjecttrack[i].split(','));
 };
 
-console.log(csvDatatrack);
-var pointA = new L.LatLng(28.635308, 77.22496);
-var pointB = new L.LatLng(28.984461, 77.70641);
-var pointList = [pointA, pointB];
+
+
+var point={};
+var pointList = [];
+for (var i = 1; i < jsonObjecttrack.length-1; i++) {
+	result   = csvDatatrack[i];   
+	var lat  = result[8];
+	var lon  = result[9];
+	point[i] = new L.LatLng([lat], [lon]);
+	pointList.push(point[i]);
+};
+console.log(pointList);
+
 
 var polyline = new L.Polyline(pointList, {
     color: 'red',
@@ -89,12 +98,19 @@ var polyline = new L.Polyline(pointList, {
     opacity: 0.5,
     smoothFactor: 1
 });
+var circle = new L.circle(pointList, {
+    color: 'red',
+    fillColor: 'blue',
+    fillOpacity: 1,
+    //radius: 500
+}).addTo(map);
+circle.addTo(map);
 polyline.addTo(map);
 
-
+//var best_track = L.layerGroup([circle, polyline]);
 var overlayMaps = {
 	"县级行政区 | Counties": counties,
-	"台风路径 | Typhoon Best Track": polyline
+	//"台风路径 | Typhoon Best Track": best_track
 };
 
 L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
