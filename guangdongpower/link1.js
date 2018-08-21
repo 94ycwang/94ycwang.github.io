@@ -24,7 +24,8 @@ var normal = L.layerGroup([normalm, normala]),
 	
 var baseLayers = {
     "地图 | Normal Map": normal,
-    "影像 | Imagery": image
+    "影像 | Imagery": image,
+	"灰色 | Gray": greym
 };
 	
 
@@ -126,18 +127,17 @@ var polyline = new L.Polyline(pointList, {
     opacity: 0.5,
     smoothFactor: 1
 });
+var overlayMaps = {
+	"县级行政区 | Counties": counties
+};
 
+L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
 
 var best_track = L.layerGroup([cirgroup, polyline]);
 best_track.setZIndex(601);
 best_track.addTo(map);
-var overlayMaps = {
-	"县级行政区 | Counties": counties,
-	"台风路径 | Typhoon Best Track": best_track
-};
 
-L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
 
 // Add weather map layers
