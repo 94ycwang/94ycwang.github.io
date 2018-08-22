@@ -68,7 +68,7 @@ function style(feature) {
 
 
 // Read Outage Prediction csv
-var urltrack = "https://94ycwang.github.io/guangdongpower/HPOM/MUJIGAE.csv";
+var urltrack = "https://94ycwang.github.io/guangdongpower/HPOM/actual_1522_mujigae.csv";
 group = new L.FeatureGroup();
 var request = new XMLHttpRequest();  
 request.open("GET", urltrack, false);   
@@ -82,59 +82,84 @@ for (var i = 0; i < jsonObjecttrack.length; i++) {
 var point={};
 var pointList = [];
 var circle ={};
+var polyline ={};
+polylinegroup = new L.FeatureGroup();
 cirgroup = new L.FeatureGroup();
 map.createPane("track");
 for (var i = 1; i < jsonObjecttrack.length-1; i++) {
 	result   = csvDatatrack[i];   
-	var lat  = result[8];
-	var lon  = result[9];
+	var lat  = result[6];
+	var lon  = result[7];
 	point[i] = new L.LatLng([lat], [lon]);
 	pointList.push(point[i]);
-	
+	if (result[5]=="TD")      {   x="#fdd835";   };
+	if (result[5]=="TS")      {   x="#fbc02d";   };
+	if (result[5]=="STS")     {   x="#f9a825";   };
+	if (result[5]=="TY")      {   x="#ff8f00";   };
+	if (result[5]=="STY")     {   x="#ef6c00";   };
+	if (result[5]=="Super TY"){   x="#d84315";   };
 	circle[i] = L.circle([lat, lon], {
-		color: 'green',
-        opacity: 0.8,
-        weight: 20,
-		pane: "track"
+		color: x,
+        opacity: 1,
+        weight: 12,
+		pane: "track",
+		rank:result[5]
     }).bindPopup(
-	   "中心位置 | Center : " + lat + "N/" + lon + "E<br>"+
-	   "时间 | Time : "+ result[6]
+	    "时间 | Time : "+ result[3]+ "<br>"+
+		"中心位置 | Center : " + lat + "N/" + lon + "E<br>"+
+	    "强度 | TCRank : "+result[5]+ "<br>"+
+	    "风速 | Wind Speed : "+result[8]+ "m/s<br>"+
+	    "阵风 | Gust : "+result[9]+ "m/s<br>"+
+	    "气压 | Pressure: "+result[10]+"hPa<br>"+
+	    "移向 | Moving Direction: "+result[11]+"°<br>"+
+		"移速 | Moving Speed: "+result[12]+"km/h<br>"+
+		"七级风圈 | Radius of 30KT Wind: "+result[14]+"km<br>"         
+	   
 	  );
     circle[i].on('mouseover', function (e) {
         this.openPopup();
 		this.setStyle({
             color: 'gray',
             opacity: 1,
-            weight: 30
+            weight: 20
         });
     });
     circle[i].on('mouseout', function (e) {
         this.closePopup();
 		this.setStyle({
-            color: 'green',
-            opacity: 0.8,
-            weight: 20
+            opacity: 1,
+            weight: 12
         });
+		if (this.options.rank=="TD")      {   this.setStyle({ color:"#fdd835" })  };
+	    if (this.options.rank=="TS")      {   this.setStyle({ color:"#fbc02d" })  };
+	    if (this.options.rank=="STS")     {   this.setStyle({ color:"#f9a825" })  };
+	    if (this.options.rank=="TY")      {   this.setStyle({ color:"#ff8f00" })  };
+	    if (this.options.rank=="STY")     {   this.setStyle({ color:"#ef6c00" })  };
+	    if (this.options.rank=="Super TY"){   this.setStyle({ color:"#d84315" })   };
     });	  
     cirgroup.addLayer(circle[i]);
+    
+	if(i>1){
+	    polyline[i] = new L.Polyline([pointList[i-2],pointList[i-1]], {
+		color: x,
+        weight: 3,
+        opacity: 1,
+        smoothFactor: 1
+    });	
+	polylinegroup.addLayer(polyline[i]);
+    };
 };
 
 map.getPane('track').style.zIndex = 601;
 
-var polyline = new L.Polyline(pointList, {
-    color: 'red',
-    weight: 3,
-    opacity: 0.5,
-    smoothFactor: 1
-});
+	
 var overlayMaps = {
 	"县级行政区 | Counties": counties
 };
-
 L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
 
-var best_track = L.layerGroup([cirgroup, polyline]);
+var best_track = L.layerGroup([cirgroup, polylinegroup]);
 best_track.setZIndex(601);
 best_track.addTo(map);
 
