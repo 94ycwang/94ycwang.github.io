@@ -71,103 +71,6 @@ function style(feature) {
 
 
 
-
-// Read Track csv
-var urltrack = "https://94ycwang.github.io/guangdongpower/HPOM/actual_1522_mujigae.csv";
-var request = new XMLHttpRequest();  
-request.open("GET", urltrack, false);   
-request.send(null);  
-var csvDatatrack = new Array();
-var jsonObjecttrack = request.responseText.split(/\r?\n|\r/);
-for (var i = 0; i < jsonObjecttrack.length; i++) {
-  csvDatatrack.push(jsonObjecttrack[i].split(','));
-};
-
-var point={};
-var pointList = [];
-var circle ={};
-var polyline ={};
-polylinegroup = new L.FeatureGroup();
-cirgroup = new L.FeatureGroup();
-map.createPane("track");
-for (var i = 1; i < jsonObjecttrack.length-1; i++) {
-	result   = csvDatatrack[i];   
-	var lat  = result[6];
-	var lon  = result[7];
-	point[i] = new L.LatLng([lat], [lon]);
-	pointList.push(point[i]);
-	if (result[5]=="TD")      {   x="#fdd835";   };
-	if (result[5]=="TS")      {   x="#fbc02d";   };
-	if (result[5]=="STS")     {   x="#f9a825";   };
-	if (result[5]=="TY")      {   x="#ff8f00";   };
-	if (result[5]=="STY")     {   x="#ef6c00";   };
-	if (result[5]=="Super TY"){   x="#d84315";   };
-	circle[i] = L.circle([lat, lon], {
-		color: x,
-        opacity: 1,
-        weight: 12,
-		pane: "track",
-		rank:result[5]
-    }).bindPopup(
-	    "时间 | Time : "+ result[3]+ "<br>"+
-		"中心位置 | Center : " + lat + "N/" + lon + "E<br>"+
-	    "强度 | TCRank : "+result[5]+ "<br>"+
-	    "风速 | Wind Speed : "+result[8]+ "m/s<br>"+
-	    "阵风 | Gust : "+result[9]+ "m/s<br>"+
-	    "气压 | Pressure: "+result[10]+"hPa<br>"+
-	    "移向 | Moving Direction: "+result[11]+"°<br>"+
-		"移速 | Moving Speed: "+result[12]+"km/h<br>"+
-		"七级风圈 | Radius of 30KT Wind: "+result[14]+"km<br>"         
-	   
-	  );
-    circle[i].on('mouseover', function (e) {
-        this.openPopup();
-		this.setStyle({
-            color: 'gray',
-            opacity: 1,
-            weight: 20
-        });
-    });
-    circle[i].on('mouseout', function (e) {
-        this.closePopup();
-		this.setStyle({
-            opacity: 1,
-            weight: 12
-        });
-		if (this.options.rank=="TD")      {   this.setStyle({ color:"#fdd835" })  };
-	    if (this.options.rank=="TS")      {   this.setStyle({ color:"#fbc02d" })  };
-	    if (this.options.rank=="STS")     {   this.setStyle({ color:"#f9a825" })  };
-	    if (this.options.rank=="TY")      {   this.setStyle({ color:"#ff8f00" })  };
-	    if (this.options.rank=="STY")     {   this.setStyle({ color:"#ef6c00" })  };
-	    if (this.options.rank=="Super TY"){   this.setStyle({ color:"#d84315" })   };
-    });	  
-    cirgroup.addLayer(circle[i]);
-    
-	if(i>1){
-	    polyline[i] = new L.Polyline([pointList[i-2],pointList[i-1]], {
-		color: x,
-        weight: 3,
-        opacity: 1,
-        smoothFactor: 1
-    });	
-	polylinegroup.addLayer(polyline[i]);
-    };
-};
-
-map.getPane('track').style.zIndex = 601;
-
-	
-var overlayMaps = {
-	"县级行政区 | Counties": counties
-};
-L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
-
-
-var best_track = L.layerGroup([cirgroup, polylinegroup]);
-best_track.setZIndex(601);
-best_track.addTo(map);
-
-
 // Checkbox control 1
 function addLayerToMap(element, layer) {
 	
@@ -322,7 +225,102 @@ $('#layeropacity').on('input', function (value) {
 	group.setStyle({fillOpacity: $(this).val() * '.01'});
 });
 
-// Forecast Track
+// Add Actual Track
+var urltrack = "https://94ycwang.github.io/guangdongpower/HPOM/actual_1522_mujigae.csv";
+var request = new XMLHttpRequest();  
+request.open("GET", urltrack, false);   
+request.send(null);  
+var csvDatatrack = new Array();
+var jsonObjecttrack = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObjecttrack.length; i++) {
+  csvDatatrack.push(jsonObjecttrack[i].split(','));
+};
+
+var point={};
+var pointList = [];
+var circle ={};
+var polyline ={};
+polylinegroup = new L.FeatureGroup();
+cirgroup = new L.FeatureGroup();
+map.createPane("track");
+for (var i = 1; i < jsonObjecttrack.length-1; i++) {
+	result   = csvDatatrack[i];   
+	var lat  = result[6];
+	var lon  = result[7];
+	point[i] = new L.LatLng([lat], [lon]);
+	pointList.push(point[i]);
+	if (result[5]=="TD")      {   x="#fdd835";   };
+	if (result[5]=="TS")      {   x="#fbc02d";   };
+	if (result[5]=="STS")     {   x="#f9a825";   };
+	if (result[5]=="TY")      {   x="#ff8f00";   };
+	if (result[5]=="STY")     {   x="#ef6c00";   };
+	if (result[5]=="Super TY"){   x="#d84315";   };
+	circle[i] = L.circle([lat, lon], {
+		color: x,
+        opacity: 1,
+        weight: 12,
+		pane: "track",
+		rank:result[5]
+    }).bindPopup(
+	    "时间 | Time : "+ result[3]+ "<br>"+
+		"中心位置 | Center : " + lat + "N/" + lon + "E<br>"+
+	    "强度 | TCRank : "+result[5]+ "<br>"+
+	    "风速 | Wind Speed : "+result[8]+ "m/s<br>"+
+	    "阵风 | Gust : "+result[9]+ "m/s<br>"+
+	    "气压 | Pressure: "+result[10]+"hPa<br>"+
+	    "移向 | Moving Direction: "+result[11]+"°<br>"+
+		"移速 | Moving Speed: "+result[12]+"km/h<br>"+
+		"七级风圈 | Radius of 30KT Wind: "+result[14]+"km<br>"         
+	   
+	  );
+    circle[i].on('mouseover', function (e) {
+        this.openPopup();
+		this.setStyle({
+            color: 'gray',
+            opacity: 1,
+            weight: 20
+        });
+    });
+    circle[i].on('mouseout', function (e) {
+        this.closePopup();
+		this.setStyle({
+            opacity: 1,
+            weight: 12
+        });
+		if (this.options.rank=="TD")      {   this.setStyle({ color:"#fdd835" })  };
+	    if (this.options.rank=="TS")      {   this.setStyle({ color:"#fbc02d" })  };
+	    if (this.options.rank=="STS")     {   this.setStyle({ color:"#f9a825" })  };
+	    if (this.options.rank=="TY")      {   this.setStyle({ color:"#ff8f00" })  };
+	    if (this.options.rank=="STY")     {   this.setStyle({ color:"#ef6c00" })  };
+	    if (this.options.rank=="Super TY"){   this.setStyle({ color:"#d84315" })   };
+    });	  
+    cirgroup.addLayer(circle[i]);
+    
+	if(i>1){
+	    polyline[i] = new L.Polyline([pointList[i-2],pointList[i-1]], {
+		color: x,
+        weight: 3,
+        opacity: 1,
+        smoothFactor: 1
+    });	
+	polylinegroup.addLayer(polyline[i]);
+    };
+};
+
+map.getPane('track').style.zIndex = 601;
+var best_track = L.layerGroup([cirgroup, polylinegroup]);
+best_track.setZIndex(601);
+best_track.addTo(map);
+
+	
+var overlayMaps = {
+	"县级行政区 | Counties": counties
+};
+L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
+
+
+
+// Add Forecast Track
 
 var time = document.getElementById("timeSelect").value;	
 
@@ -333,11 +331,90 @@ request.send(null);
 var csvDataforecast = new Array();
 var jsonObjectforecast = request.responseText.split(/\r?\n|\r/);
 for (var i = 0; i < jsonObjectforecast.length; i++) {
-  csvDataforecast.push(jsonObjectforecast[i].split(','));
+	csvDataforecast.push(jsonObjectforecast[i].split(','));
 };
-console.log(csvDataforecast);
+
 function Time_Function() {
-    time = document.getElementById("timeSelect").value;	   
-    
+    time = document.getElementById("timeSelect").value;
+    Track_Forecast();
 };
+
+var forecast_track;
+function Track_Forecast(){	
+	var point_forecast={};
+    var pointList_forecast = [];
+    var circle_forecast ={};
+    var polyline_forecast ={};
+    polylinegroup_forecast = new L.FeatureGroup();
+    cirgroup_forecast = new L.FeatureGroup();
+	num = 0;
+	for (var i = 0; i < jsonObjectforecast.length; i++) {
+		result   = csvDataforecast[i]; 
+		if(result[4]   == time){
+			num ++;
+			lat  = result[7];
+	        lon  = result[8];
+	        point_forecast[i] = new L.LatLng([lat], [lon]);
+	        pointList_forecast.push(point_forecast[i]);
+	        if (result[6]=="TD")      {   x="#fdd835";   };
+	        if (result[6]=="TS")      {   x="#fbc02d";   };
+	        if (result[6]=="STS")     {   x="#f9a825";   };
+	        if (result[6]=="TY")      {   x="#ff8f00";   };
+	        if (result[6]=="STY")     {   x="#ef6c00";   };
+	        if (result[6]=="Super TY"){   x="#d84315";   };
+	        circle_forecast[i] = L.circle([lat, lon], {
+				color: x,
+				opacity: 1,
+                weight: 12,
+		        pane: "track",
+		        rank:result[6]
+            }).bindPopup(
+			"预报时次 | Lead Time : "+ result[5]+ "<br>"+
+		    "中心位置 | Center : " + lat + "N/" + lon + "E<br>"+
+	        "强度 | TCRank : "+result[6]+ "<br>"+
+	        "风速 | Wind Speed : "+result[9]+ "m/s<br>"+
+	        "阵风 | Gust : "+result[10]+ "m/s<br>"+
+	        "气压 | Pressure: "+result[11]+"hPa<br>"+
+	        "移向 | Moving Direction: "+result[12]+"°<br>"+
+		    "移速 | Moving Speed: "+result[13]+"km/h<br>"+
+		    "七级风圈 | Radius of 30KT Wind: "+result[15]+"km<br>"         
+			);
+            circle_forecast[i].on('mouseover', function (e) {
+				this.openPopup();
+		        this.setStyle({
+					color: 'gray',
+					opacity: 1,
+					weight: 20
+			    });
+            });
+            circle_forecast[i].on('mouseout', function (e) {
+			    this.closePopup();
+		        this.setStyle({
+                    opacity: 1,
+                    weight: 12
+                });
+		        if (this.options.rank=="TD")      {   this.setStyle({ color:"#fdd835" })  };
+	            if (this.options.rank=="TS")      {   this.setStyle({ color:"#fbc02d" })  };
+	            if (this.options.rank=="STS")     {   this.setStyle({ color:"#f9a825" })  };
+	            if (this.options.rank=="TY")      {   this.setStyle({ color:"#ff8f00" })  };
+	            if (this.options.rank=="STY")     {   this.setStyle({ color:"#ef6c00" })  };
+	            if (this.options.rank=="Super TY"){   this.setStyle({ color:"#d84315" })   };
+            });	  
+            cirgroup_forecast.addLayer(circle_forecast[i]);
+    
+	        if(num>1){
+	            polyline_forecast[i] = new L.Polyline([pointList_forecast[num-2],pointList_forecast[num-1]], {
+		        color: x,
+                weight: 3,
+                opacity: 1,
+                smoothFactor: 1
+            });	
+	        polylinegroup_forecast.addLayer(polyline_forecast[i]);
+            };
+		}; 
+	};	
+	
+    forecast_track = L.layerGroup([cirgroup_forecast, polylinegroup_forecast]);
+    forecast_track.setZIndex(601);
+};	
 
