@@ -21,6 +21,9 @@ var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
 
 var normal = L.layerGroup([normalm, normala]),
     image  = L.layerGroup([imgm, imga]);
+
+normala.setZIndex(102);
+imga.setZIndex(102);
 	
 var baseLayers = {
     "地图 | Normal Map": normal,
@@ -67,9 +70,10 @@ function style(feature) {
 };
 
 
-// Read Outage Prediction csv
+
+
+// Read Track csv
 var urltrack = "https://94ycwang.github.io/guangdongpower/HPOM/actual_1522_mujigae.csv";
-group = new L.FeatureGroup();
 var request = new XMLHttpRequest();  
 request.open("GET", urltrack, false);   
 request.send(null);  
@@ -163,18 +167,6 @@ var best_track = L.layerGroup([cirgroup, polylinegroup]);
 best_track.setZIndex(601);
 best_track.addTo(map);
 
-
-
-// Add weather map layers
-
-var winds = L.OWM.wind({opacity: getfillOpacity(),appId: '50fb245848ee7d2c3bc723abd817a15a'});
-var city = L.OWM.current({intervall: 15,useLocalTime: true ,lang:'CE', appId: '50fb245848ee7d2c3bc723abd817a15a'});
-var precipitation =  L.OWM.precipitationClassic({showLegend: true, opacity: getfillOpacity(), appId: '50fb245848ee7d2c3bc723abd817a15a'});
-
-winds.setZIndex(100);
-precipitation.setZIndex(100);
-normala.setZIndex(102);
-imga.setZIndex(102);
 
 // Checkbox control 1
 function addLayerToMap(element, layer) {
@@ -331,9 +323,21 @@ $('#layeropacity').on('input', function (value) {
 });
 
 // Forecast Track
+
 var time = document.getElementById("timeSelect").value;	
+
+var urlforecast = "https://94ycwang.github.io/guangdongpower/HPOM/forecast_1522_mujigae.csv";
+var request = new XMLHttpRequest();  
+request.open("GET", urlforecast, false);   
+request.send(null);  
+var csvDataforecast = new Array();
+var jsonObjectforecast = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObjectforecast.length; i++) {
+  csvDataforecast.push(jsonObjectforecast[i].split(','));
+};
+console.log(csvDataforecast);
 function Time_Function() {
     time = document.getElementById("timeSelect").value;	   
-    console.log(time)	
+    
 };
 
