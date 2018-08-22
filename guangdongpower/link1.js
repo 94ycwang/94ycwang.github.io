@@ -330,5 +330,10 @@ $('#layeropacity').on('input', function (value) {
 	group.setStyle({fillOpacity: $(this).val() * '.01'});
 });
 
-
+// Forecast Track
+var time = document.getElementById("timeSelect").value;	
+function Time_Function() {
+    time = document.getElementById("timeSelect").value;	   
+    console.log(time)	
+};
 
