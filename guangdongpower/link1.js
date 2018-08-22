@@ -237,7 +237,8 @@ for (var i = 1; i < jsonObjecttrack.length-1; i++) {
 	if (result[5]=="STS")     {   x="#f9a825";   };
 	if (result[5]=="TY")      {   x="#ff8f00";   };
 	if (result[5]=="STY")     {   x="#ef6c00";   };
-	if (result[5]=="Super TY"){   x="#d84315";   };
+	if (result[5]=="SUPER TY"){   x="#d84315";   };
+	if (result[5]=="SUPERTY") {   x="#d84315";   };
 	circle[i] = L.circle([lat, lon], {
 		color: x,
         opacity: 1,
@@ -276,7 +277,8 @@ for (var i = 1; i < jsonObjecttrack.length-1; i++) {
 	    if (this.options.rank=="STS")     {   this.setStyle({ color:"#f9a825" })  };
 	    if (this.options.rank=="TY")      {   this.setStyle({ color:"#ff8f00" })  };
 	    if (this.options.rank=="STY")     {   this.setStyle({ color:"#ef6c00" })  };
-	    if (this.options.rank=="Super TY"){   this.setStyle({ color:"#d84315" })   };
+	    if (this.options.rank=="SUPER TY"){   this.setStyle({ color:"#d84315" })  };
+		if (this.options.rank=="SUPERTY") {   this.setStyle({ color:"#d84315" })  };
     });	  
     cirgroup.addLayer(circle[i]);
     
