@@ -4,11 +4,13 @@
 .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
 .title {
   height: 150px; 
-  background-color:	#d6cbd3; 
-  padding: 20px 50px;
+  /*background-color:	#d6cbd3; */
+  background-image: url("Top_of_Atmosphere.jpg");
+  background-size: 1300px 150px;
+  padding: 5px 50px;
   white-space:nowrap;  
 }
-	
+
 .container {
   display:flex;
   height:115vh;
@@ -43,22 +45,10 @@ li a:hover:not(.active) {
 
 li a.active {
     color: black;
-    background-color: #bdcebe;
+    background-color: #d7e1f4;
 }
 
 
-.button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
 * {
     box-sizing: border-box;
 }
@@ -78,12 +68,12 @@ li a.active {
 
 a.link {
   text-decoration: initial;
-  color: blue;	
+  color: #305db5;	
 }	
 p {
 	 font:16px Book Antiqua;
      align-content:stretch;
-     padding: 10px 5px;
+     padding: 0px 5px;
 }
 
 
