@@ -54,15 +54,14 @@ for (var i = 0; i < HPOM.features.length; i++) {
 var mymap =  L.map('mapid', {
     center: [35, -80],
     zoom: 6,
-	zoomControl: false
 });
-
+/*
 var zoomHome = L.Control.zoomHome({
     zoomInTitle: 'Zoom in',
     zoomOutTitle: 'Zoom out',
 	zoomHomeTitle:'Home'
 }).addTo(map);	
-
+*/
 
   mymap.createPane('radar');
 
