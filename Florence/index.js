@@ -54,7 +54,7 @@ for (var i = 0; i < HPOM.features.length; i++) {
 // Set variable for map and initialize
 var mymap =  L.map('mapid', {
     center: [35, -80],
-    zoom: 5,
+    zoom: 6,
 });
   mymap.createPane('radar');
 
