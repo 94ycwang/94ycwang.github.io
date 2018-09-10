@@ -20,10 +20,7 @@ function Get(yourUrl){
     Httpreq.send(null);
     return Httpreq.responseText;          
 };
-
-var HPOM = JSON.parse(Get('https://94ycwang.github.io/Florence/HPOM/NC.geojson'));
-
-//var  SC= JSON.parse(Get('https://94ycwang.github.io/Florence/HPOM/SC.geojson'));
+var HPOM = JSON.parse(Get('https://94ycwang.github.io/Florence/HPOM/tract.geojson'));
 
 for (var i = 0; i < HPOM.features.length; i++) {
     HPOM.features[i].properties.power = 0;
