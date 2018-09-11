@@ -31,6 +31,7 @@
   <!-- Load Home Button-->
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="HPOM/leaflet.zoomhome.css"/>
+	<script src="HPOM/leaflet.zoomhome.min.js"></script>
 </head>
 
 <center>
@@ -52,6 +53,8 @@
 	   <font face="Cambria">
 	   
 	   <h3 style="color:#bb0000"> <font face="Book Antiqua">HPOM Output </font></h3>
+	   <input type="checkbox" id="Check3" checked =true onclick="addLayer(this, forecast_track)"> Input Forecast Track 
+	   <br></br>
 	   <input type="checkbox" id="Check1" checked =true onclick="addLayerToMap_HPOM(this, LHPOM)"> Percentage of Population Affected
        <br></br>
 	   <input type="checkbox" id="Check2"  onclick="addLayerToMap_HPOM(this, LHPOM2)"> Number of Population Affected 
@@ -62,7 +65,7 @@
         <output id="rangevalue">50</output>
         </form>
         <div class="hpom-transparency"></div>
-       
+        
 	   <h3 style="color:#bb0000"> <font face="Book Antiqua">Weather Map Layers </font></h3>
 	   <select id="mySelect" onchange="getLayer(this.options[this.selectedIndex].value)">
           <option value="current">Current Storm</option>
@@ -154,8 +157,6 @@
 
   <div class="logos">
   <tr>
-    <td> <img src="HPOM/TDEM.png" height="75 px" width="75 px"></td>
-    <td> <img src="HPOM/PFUBAwJ.png" height="75 px" width="75 px"></td>
 	<td> <img src="HPOM/OSU_LOGO.jpg" height="75 px" width="150 px"></td>
   </tr>
 </div>

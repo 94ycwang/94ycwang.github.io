@@ -20,9 +20,7 @@ function Get(yourUrl){
     Httpreq.send(null);
     return Httpreq.responseText;          
 };
-var HPOM = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/37.geojson'));
-var HPOM1 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/45.geojson'));
-var HPOM2 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/51.geojson'));
+var HPOM = JSON.parse(Get('https://94ycwang.github.io/Florence/HPOM/tract.geojson'));
 for (var i = 0; i < HPOM.features.length; i++) {
     HPOM.features[i].properties.power = 0;
     HPOM.features[i].properties.people = 0;	
@@ -35,12 +33,11 @@ for (var j = 0; j < HPOM.features.length; j++) {
 	for (var i = 1; i < jsonObject.length; i++) {
 		result= csvData[i];
         if (result[0]===HPOM.features[j].properties.GEOID) {
-        /*HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
-		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);*/
+        HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
+		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);
 		flag =1;
         }		
-    }
-	
+    }	
 	if(flag === 0){	
 	   delete HPOM.features[j];
 	   HPOM.features = HPOM.features.filter(function( element ) {
@@ -49,14 +46,15 @@ for (var j = 0; j < HPOM.features.length; j++) {
 	   j--;
     };
 };
-
+/*
+var HPOM1 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/45.geojson'));
+var HPOM2 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/51.geojson'));
 for (var j = 0; j < HPOM1.features.length; j++) {
     var flag = 0;
 	for (var i = 1; i < jsonObject.length; i++) {
 		result= csvData[i];
         if (result[0]===HPOM1.features[j].properties.GEOID) {
-        /*HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
-		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);*/
+        
 		flag =1;
 		HPOM.features.push(HPOM1.features[j]);
         }		
@@ -72,14 +70,12 @@ for (var j = 0; j < HPOM1.features.length; j++) {
 };
 
 
-
 for (var j = 0; j < HPOM2.features.length; j++) {
     var flag = 0;
 	for (var i = 1; i < jsonObject.length; i++) {
 		result= csvData[i];
         if (result[0]===HPOM2.features[j].properties.GEOID) {
-        /*HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
-		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);*/
+        
 		flag =1;
 		HPOM.features.push(HPOM2.features[j]);
         }		
@@ -93,22 +89,22 @@ for (var j = 0; j < HPOM2.features.length; j++) {
 	   j--;
     };
 };
-
-
+*/
 
 //******************************************* Map HPOM output with hover-over function ******************************************
 // Set variable for map and initialize
 var mymap =  L.map('mapid', {
-    center: [35, -80],
+    center: [34, -77],
     zoom: 6,
+	zoomControl: false
 });
-/*
+
 var zoomHome = L.Control.zoomHome({
     zoomInTitle: 'Zoom in',
     zoomOutTitle: 'Zoom out',
 	zoomHomeTitle:'Home'
-}).addTo(map);	
-*/
+}).addTo(mymap);	
+
 
   mymap.createPane('radar');
 
@@ -165,13 +161,17 @@ function style2(feature) {
 
 // Change color
 	function getColor(d) {
-    return d > 60  ? '#800026' :
-           d > 50  ? '#BD0026' :
-           d > 40  ? '#E31A1C' :
-           d > 30  ? '#FC4E2A' :
-           d > 20  ? '#FD8D3C' :
-           d > 10  ? '#FEB24C' :
-                     '#FFEDA0' ;
+    return d > 50  ? 'rgb(232, 16, 20)' :
+           d > 45  ? 'rgb(242, 77, 31)' :
+           d > 40  ? 'rgb(247, 122, 45)' :
+           d > 35  ? 'rgb(252, 164, 63)' :
+           d > 30  ? 'rgb(252, 207, 81)' :
+           d > 25  ? 'rgb(250, 250, 100)' :
+		   d > 20  ? 'rgb(215, 227, 125)' :
+		   d > 15  ? 'rgb(177, 204, 145)' :
+		   d > 10  ? 'rgb(140, 184, 164)' :
+		   d > 5   ? 'rgb(96, 163, 181)' :
+                     'rgb(40, 146, 199)' ;
 };	
 
    function getColor_P(d) {
@@ -339,7 +339,7 @@ function myStyle4(feature) {
     };
 };
 function getwindColor(d) {
-	    return d ==">90%" ?  '#270000' :
+	    return d ==">0%" ?  '#270000' :
 	       d =="80-90%"   ?  '#6f0000' :
 	       d =="70-80%"   ?  '#930000' :
 	       d =="60-70%"   ?  '#934a00' :
@@ -499,7 +499,7 @@ L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft', collapsed:false
 var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend'),
-    grades = [0, 10, 20, 30, 40, 50, 60],
+    grades = [0, 5,10, 15, 20, 25, 30, 35, 40, 45, 50],
     labels = [];
     // Loop through our percentage intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
@@ -727,7 +727,7 @@ function popup(id) {
 
 //****************************************************** Download files *********************************************************
 function downloadObjectAsCsv(exportObj, exportName){
-    var dataUrl = "https://94ycwang.github.io/TDEM/HPOM/sample.csv";
+    var dataUrl = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091018_OFCL_Prediction_F.csv";
     var downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href",     dataUrl);
     downloadAnchorNode.click();
@@ -808,3 +808,99 @@ L.easyPrint({
 	sizeModes: ['A4Portrait', 'A4Landscape'],
 	exportOnly: true
 }).addTo(mymap);
+
+//******************************************************* Add forecast track ********************************************************
+var urlforecast = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091018_OFCL_Track_MPH.csv";
+var request = new XMLHttpRequest();  
+request.open("GET", urlforecast, false);   
+request.send(null);  
+var csvDataforecast = new Array();
+var jsonObjectforecast = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObjectforecast.length; i++) {
+	csvDataforecast.push(jsonObjectforecast[i].split(','));
+};
+
+
+var point_forecast={};
+var pointList_forecast = [];
+var circle_forecast ={};
+var polyline_forecast ={};
+polylinegroup_forecast = new L.FeatureGroup();
+cirgroup_forecast = new L.FeatureGroup();
+mymap.createPane("trackp");
+mymap.createPane("track");
+for (var i = 1; i < jsonObjectforecast.length-1; i++) {
+	result   = csvDataforecast[i]; 
+	lat   = result[4];
+	lon   = result[5];
+	lonp  = -lon;
+	winsp = parseFloat(result[6]).toFixed(2);
+	console.log(lat);
+	point_forecast[i-1] = new L.LatLng([lat], [lon]);
+	pointList_forecast.push(point_forecast[i-1]);
+	if (result[6]<39)      {   x="#fdd835";   };
+	if (result[6]>=39)     {   x="#fbc02d";   };
+	if (result[6]>74)      {   x="#f9a825";   };
+	if (result[6]>95)      {   x="#ff8f00";   };
+	if (result[6]>110)     {   x="#ef6c00";   };
+	if (result[6]>129)     {   x="#d84315";   };
+	if (result[6]>156)     {   x="#a80000";   };
+	circle_forecast[i-1] = L.circle([lat, lon], {
+		color: x,
+	    opacity: 1,
+        weight: 12,
+        pane: "trackp",
+		rank:result[6]
+    }).bindPopup(
+	    "Forecast Time : "+ result[0]+"-"+result[1]+"-"+result[2] +"  "+result[3]+":00<br>"+
+	    "Center : " + lat + "N/"+ lonp + "W<br>"+
+	    "Wind Speed : "+ winsp + "mph<br>"  
+	);
+    circle_forecast[i-1].on('mouseover', function (e) {
+	    this.openPopup();
+		this.setStyle({
+			    color: 'gray',
+			    opacity: 1,
+			    weight: 20
+		});
+    });
+    circle_forecast[i-1].on('mouseout', function (e) {
+        this.closePopup();
+	    this.setStyle({
+		    opacity: 1,
+            weight: 12
+        });
+        if (this.options.rank<39)      {   this.setStyle({ color:"#fdd835" })  };
+	    if (this.options.rank>=39)     {   this.setStyle({ color:"#fbc02d" })  };
+	    if (this.options.rank>74)      {   this.setStyle({ color:"#f9a825" })  };
+	    if (this.options.rank>95)      {   this.setStyle({ color:"#ff8f00" })  };
+	    if (this.options.rank>110)     {   this.setStyle({ color:"#ef6c00" })  };
+	    if (this.options.rank>129)     {   this.setStyle({ color:"#d84315" })  };
+		if (this.options.rank>156)     {   this.setStyle({ color:"#a80000" })  };
+    });	  
+    cirgroup_forecast.addLayer(circle_forecast[i-1]);
+    
+    if(i>1){
+	    polyline_forecast[i-2] = new L.Polyline([pointList_forecast[i-2],pointList_forecast[i-1]], {
+		    color: x,
+            weight: 3,
+            opacity: 1,
+            smoothFactor: 1,
+			pane: "track"
+		});	
+	    polylinegroup_forecast.addLayer(polyline_forecast[i-2]);
+    };
+}; 	
+forecast_track = L.layerGroup([cirgroup_forecast, polylinegroup_forecast]).addTo(mymap);  
+mymap.getPane('trackp').style.zIndex = 602;
+mymap.getPane('track').style.zIndex =  601;
+
+// Checkbox control -- add layer of forecast track
+function addLayer(element) {
+    if (element.checked){
+		forecast_track.addTo(mymap);
+    } else {
+		forecast_track.remove();
+	};
+	
+};
