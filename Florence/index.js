@@ -1,7 +1,7 @@
 
 //************************************ Merge power outage model output with tract ID ********************************************
 // Retrived data from csv file content
-/*var url = "https://94ycwang.github.io/TDEM/HPOM/sample.csv";
+var url = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091018_OFCL_Prediction_F.csv";
 var request = new XMLHttpRequest();  //This is deprecated. We need to change this
 request.open("GET", url, false);   
 request.send(null);  
@@ -11,7 +11,7 @@ var jsonObject = request.responseText.split(/\r?\n|\r/);
 for (var i = 0; i < jsonObject.length; i++) {
   csvData.push(jsonObject[i].split(','));
 };
-*/
+
 
 // Read tract ID
 function Get(yourUrl){
@@ -28,14 +28,15 @@ for (var i = 0; i < HPOM.features.length; i++) {
     HPOM.features[i].properties.people = 0;	
 };
 
+
 // Merge
-/*for (var j = 0; j < HPOM.features.length; j++) {
+for (var j = 0; j < HPOM.features.length; j++) {
     var flag = 0;
 	for (var i = 1; i < jsonObject.length; i++) {
 		result= csvData[i];
         if (result[0]===HPOM.features[j].properties.GEOID) {
-        HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
-		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);
+        /*HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
+		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);*/
 		flag =1;
         }		
     }
@@ -48,7 +49,52 @@ for (var i = 0; i < HPOM.features.length; i++) {
 	   j--;
     };
 };
-*/
+
+for (var j = 0; j < HPOM1.features.length; j++) {
+    var flag = 0;
+	for (var i = 1; i < jsonObject.length; i++) {
+		result= csvData[i];
+        if (result[0]===HPOM1.features[j].properties.GEOID) {
+        /*HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
+		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);*/
+		flag =1;
+		HPOM.features.push(HPOM1.features[j]);
+        }		
+    }
+	
+	if(flag === 0){	
+	   delete HPOM1.features[j];
+	   HPOM1.features = HPOM1.features.filter(function( element ) {
+               return element !== undefined;
+       });
+	   j--;
+    };
+};
+
+
+
+for (var j = 0; j < HPOM2.features.length; j++) {
+    var flag = 0;
+	for (var i = 1; i < jsonObject.length; i++) {
+		result= csvData[i];
+        if (result[0]===HPOM2.features[j].properties.GEOID) {
+        /*HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
+		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);*/
+		flag =1;
+		HPOM.features.push(HPOM2.features[j]);
+        }		
+    }
+	
+	if(flag === 0){	
+	   delete HPOM2.features[j];
+	   HPOM2.features = HPOM2.features.filter(function( element ) {
+               return element !== undefined;
+       });
+	   j--;
+    };
+};
+
+
 
 //******************************************* Map HPOM output with hover-over function ******************************************
 // Set variable for map and initialize
