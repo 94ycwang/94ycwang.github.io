@@ -357,7 +357,7 @@ function getwindColor(d) {
  // Create hurricane layers from external REST services (NHC)
 var track_forecast = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
-	layers:[5,6]},{style: myStyle1});//,16,17,27,28,38,39,49,50
+	layers:[5,6]});//,16,17,27,28,38,39,49,50
 var watch_warning  = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
 	layers:[7]},{style: myStyle2});//,18,29,40,51
@@ -367,6 +367,7 @@ var Psurge = L.esri.dynamicMapLayer({
 var Pwind34 = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
 	layers:[59]},{style: myStyle4});
+console.log(Pwind34);
 var Pwind50 = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
 	layers:[60]},{style: myStyle4});
@@ -426,7 +427,6 @@ function getLayer(value){
 	  {style: myStyle4});
 	  Pwind64 = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/2017082400_wsp_120hr5km64.zip',
 	  {style: myStyle4});
-	
 	}else{
 		
     // Using external REST services
