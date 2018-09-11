@@ -1,7 +1,7 @@
 
 //************************************ Merge power outage model output with tract ID ********************************************
 // Retrived data from csv file content
-var url = "https://raw.githubusercontent.com/94ycwang/94ycwang.github.io/master/Florence/HPOM/Florence_2018091106_OFCL_Prediction_F.csv";
+var url = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091106_OFCL_Prediction_F.csv";
 var request = new XMLHttpRequest();  //This is deprecated. We need to change this
 request.open("GET", url, false);   
 request.send(null);  
