@@ -1,7 +1,7 @@
 
 //************************************ Merge power outage model output with tract ID ********************************************
 // Retrived data from csv file content
-var url = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091018_OFCL_Prediction_F.csv";
+var url = "https://raw.githubusercontent.com/94ycwang/94ycwang.github.io/master/Florence/HPOM/Florence_2018091106_OFCL_Prediction_F.csv";
 var request = new XMLHttpRequest();  //This is deprecated. We need to change this
 request.open("GET", url, false);   
 request.send(null);  
@@ -367,7 +367,6 @@ var Psurge = L.esri.dynamicMapLayer({
 var Pwind34 = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
 	layers:[59]},{style: myStyle4});
-console.log(Pwind34);
 var Pwind50 = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
 	layers:[60]},{style: myStyle4});
