@@ -20,7 +20,7 @@ function Get(yourUrl){
     Httpreq.send(null);
     return Httpreq.responseText;          
 };
-HPOM = new L.Shapefile('https://94ycwang.github.io/guangdongpower/HPOM/cb_2017_37_tract_500k.zip');
+var HPOM = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/37.geojson'));
 
 for (var i = 0; i < HPOM.features.length; i++) {
     HPOM.features[i].properties.power = 0;
