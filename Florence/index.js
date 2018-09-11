@@ -21,7 +21,8 @@ function Get(yourUrl){
     return Httpreq.responseText;          
 };
 var HPOM = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/37.geojson'));
-
+var HPOM1 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/45.geojson'));
+var HPOM2 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/51.geojson'));
 for (var i = 0; i < HPOM.features.length; i++) {
     HPOM.features[i].properties.power = 0;
     HPOM.features[i].properties.people = 0;	
