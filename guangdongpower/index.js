@@ -96,7 +96,7 @@ function addLayerToMap(element, layer) {
 
 
 //
-var url = "https://94ycwang.github.io/guangdongpower/HPOM/grid.csv";
+var url = "https://94ycwang.github.io/guangdongpower/HPOM/outage_grid.csv";
 group = new L.FeatureGroup();
 var request = new XMLHttpRequest();  
 request.open("GET", url, false);   
