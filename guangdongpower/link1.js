@@ -74,7 +74,7 @@ L.control.layers(baseLayers,overlayMaps,{collapsed:false}).addTo(map);
 
 
 // Add Outage Prediction 
-var url = "https://94ycwang.github.io/guangdongpower/HPOM/grid.csv";
+var url = "https://94ycwang.github.io/guangdongpower/HPOM/outage_grid.csv";
 group = new L.FeatureGroup();
 var request = new XMLHttpRequest();  
 request.open("GET", url, false);   
@@ -153,6 +153,85 @@ function getColor(d) {
                      '#FFEDA0' ;
 };	
 
+// Add Actual Outage 
+var url = "https://94ycwang.github.io/guangdongpower/HPOM/outage_actual.csv";
+group_actual = new L.FeatureGroup();
+var request = new XMLHttpRequest();  
+request.open("GET", url, false);   
+request.send(null);  
+var csvData = new Array();
+var jsonObject = request.responseText.split(/\r?\n|\r/);
+for (var i = 0; i < jsonObject.length; i++) {
+  csvData.push(jsonObject[i].split(','));
+};
+
+
+rectangle = {};
+for (var i = 1;  i< 1555; i++) {
+    result= csvData[i];
+	var lat1 = result[3];
+	var lon1 = result[4];
+	var lat2 = result[5];
+	var lon2 = result[6]; 
+
+    var bounds = [
+        [lat1, lon1],
+        [lat2, lon1],
+        [lat2, lon2],
+        [lat1, lon2],
+        [lat1, lon1]
+    ];
+    rectangle[i]=L.rectangle(bounds, {
+		weight: 0.8,
+		fillColor: getColor(result[7]), 
+		color: 'gray',
+		fillOpacity: getfillOpacity(),
+		pane: "POP"
+    }).bindPopup(
+	   "网格中心 | Grid Center : "+result[1]+"N/"+result[2]+"E<br>"+
+	   "编号 | ID : "+result[0]+"<br>"+
+	   "百分比 | Percentage : "+result[7]+"%<br>"+
+	   "更新时间 | Update Time : 08/07 2018"
+	  );
+	rectangle[i].ID = result[0];
+    group_actual.addLayer(rectangle[i]);
+};
+map.getPane('POP').style.zIndex = 600;
+//group.addTo(map);
+
+Layers_actual=group_actual.getLayers();
+for (var i = 0;  i< 1554; i++) {
+    Layers_actual[i].on('mouseover', function(e) {
+        var layer = e.target;
+        layer.setStyle({
+            color: 'black',
+            opacity: 1,
+            weight: 2.5
+        });
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+    });
+	Layers_actual[i].on('mouseout', function(e) {
+        var layer = e.target;
+        layer.setStyle({
+            color: 'gray',
+            opacity: 1,
+            weight: 0.8
+        });
+    });
+	
+};	
+
+function getColor(d) {
+    return d > 60  ? '#800026' :
+           d > 50  ? '#BD0026' :
+           d > 40  ? '#E31A1C' :
+           d > 30  ? '#FC4E2A' :
+           d > 20  ? '#FD8D3C' :
+           d > 10  ? '#FEB24C' :
+                     '#FFEDA0' ;
+};	
 // Search by ID
 function search(){
 	var flag = 0;
