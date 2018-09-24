@@ -159,16 +159,16 @@ group_actual = new L.FeatureGroup();
 var request = new XMLHttpRequest();  
 request.open("GET", url, false);   
 request.send(null);  
-var csvData = new Array();
+var csvData_actual = new Array();
 var jsonObject = request.responseText.split(/\r?\n|\r/);
 for (var i = 0; i < jsonObject.length; i++) {
-  csvData.push(jsonObject[i].split(','));
+  csvData_actual.push(jsonObject[i].split(','));
 };
 
 
 rectangle = {};
 for (var i = 1;  i< 1555; i++) {
-    result= csvData[i];
+    result= csvData_actual[i];
 	var lat1 = result[3];
 	var lon1 = result[4];
 	var lat2 = result[5];
@@ -197,7 +197,6 @@ for (var i = 1;  i< 1555; i++) {
     group_actual.addLayer(rectangle[i]);
 };
 map.getPane('POP').style.zIndex = 600;
-//group.addTo(map);
 
 Layers_actual=group_actual.getLayers();
 for (var i = 0;  i< 1554; i++) {
@@ -223,23 +222,89 @@ for (var i = 0;  i< 1554; i++) {
 	
 };	
 
-function getColor(d) {
-    return d > 60  ? '#800026' :
-           d > 50  ? '#BD0026' :
-           d > 40  ? '#E31A1C' :
-           d > 30  ? '#FC4E2A' :
-           d > 20  ? '#FD8D3C' :
-           d > 10  ? '#FEB24C' :
-                     '#FFEDA0' ;
+// Add difference
+group_diff = new L.FeatureGroup();
+rectangle = {};
+for (var i = 1;  i< 1555; i++) {
+    result = csvData[i]
+	result_actual = csvData_actual[i];
+	var lat1 = result[3];
+	var lon1 = result[4];
+	var lat2 = result[5];
+	var lon2 = result[6]; 
+    var diff = result[7]-result_actual[7];
+    var bounds = [
+        [lat1, lon1],
+        [lat2, lon1],
+        [lat2, lon2],
+        [lat1, lon2],
+        [lat1, lon1]
+    ];
+    rectangle[i]=L.rectangle(bounds, {
+		weight: 0.8,
+		fillColor: getColor_diff(diff), 
+		color: 'gray',
+		fillOpacity: getfillOpacity(),
+		pane: "POP"
+    }).bindPopup(
+	   "网格中心 | Grid Center : "+result[1]+"N/"+result[2]+"E<br>"+
+	   "编号 | ID : "+result[0]+"<br>"+
+	   "误差 | Error : "+diff+"%<br>"+
+	   "更新时间 | Update Time : 08/07 2018"
+	  );
+	rectangle[i].ID = result[0];
+    group_diff.addLayer(rectangle[i]);
+};
+map.getPane('POP').style.zIndex = 600;
+
+Layers_diff=group_diff.getLayers();
+for (var i = 0;  i< 1554; i++) {
+    Layers_diff[i].on('mouseover', function(e) {
+        var layer = e.target;
+        layer.setStyle({
+            color: 'black',
+            opacity: 1,
+            weight: 2.5
+        });
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+    });
+	Layers_diff[i].on('mouseout', function(e) {
+        var layer = e.target;
+        layer.setStyle({
+            color: 'gray',
+            opacity: 1,
+            weight: 0.8
+        });
+    });
+	
 };	
+
+function getColor_diff(d) {
+    return d >  30  ? '#c0392b' :
+           d >  15  ? '#d98880' :
+           d >  5   ? '#f2d7d5' :
+           d > -5   ? '#FDFEFE' :
+           d > -15  ? '#d6eaf8' :
+           d > -30  ? '#85c1e9' :
+					  '#2e86c1' ;
+};	
+
+
 // Search by ID
 function search(){
 	var flag = 0;
 	x = document.getElementById("ID").value;
 	for (var i = 0;  i< 1554; i++) {
-      if (x===Layers[i].ID) {
-		  Layers[i].openPopup();
-		  flag =1;
+        if (x===Layers[i].ID) {
+			flag =1;
+		    if(flag_predict===1){
+				Layers[i].openPopup();
+	        };
+			if(flag_actual===1){
+				Layers_actual[i].openPopup();
+	        };		
         };		
     };
 	
@@ -265,6 +330,29 @@ legend.onAdd = function (map) {
 };
 legend.addTo(map);
 
+var legend_diff = L.control({position: 'bottomright'});
+legend_diff.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+    grades_diff = [-30, -15, -5, 5, 15, 30],
+    labels = [];
+    // Loop through our percentage intervals and generate a label with a colored square for each interval
+    for (var i = 0; i <= grades_diff.length; i++) {
+		if(i===0){
+		div.innerHTML +=
+            '<i style="background:' + getColor_diff(grades_diff[i]) + '"></i> ' +
+             '&lt; '+ grades_diff[i] +'%'+'<br>';	
+	    }else if(i===grades_diff.length){	
+		div.innerHTML +=
+            '<i style="background:' + getColor_diff(grades_diff[i-1] + 1) + '"></i> ' +
+            '&gt; '+ grades_diff[i-1] +'%'+'<br>';	
+        }else{
+        div.innerHTML +=
+            '<i style="background:' + getColor_diff(grades_diff[i-1] + 1) + '"></i> ' +
+            grades_diff[i-1] + ' &#x2053; ' + grades_diff[i] +'%'+'<br>';
+		}	
+    }
+    return div;
+};
 
 // Opacity Slider
 function getfillOpacity() {
@@ -272,17 +360,84 @@ function getfillOpacity() {
 }
 $('#layeropacity').on('input', function (value) {
 	group.setStyle({fillOpacity: $(this).val() * '.01'});
+	group_actual.setStyle({fillOpacity: $(this).val() * '.01'});
+	group_diff.setStyle({fillOpacity: $(this).val() * '.01'});
 });
 
-// Checkbox control 2 -- add layer with legend
-function addLayerToMap2(element, layer) {
+// Checkbox control-- add layer with legend
+var flag_predict = 1;
+var flag_actual  = 0;
+var flag_diff    = 0;
+function addpredictToMap(element, layer) {
 	
     if (element.checked){
+		flag_predict = 1;
 		layer.addTo(map);
 		legend.addTo(map);
+		if(flag_actual === 1){
+			document.getElementById("POA").checked = false;
+			group_actual.remove();
+			flag_actual = 0;
+		};
+		if(flag_diff === 1){
+			document.getElementById("DIFF").checked = false;
+			group_diff.remove();
+			legend_diff.remove();
+			flag_diff = 0;
+		};
+    } else {
+		layer.remove();
+        legend.remove(map);	
+        flag_predict = 0;		
+	};
+};
+
+function addactualToMap(element, layer) {
+	
+    if (element.checked){
+		flag_actual  = 1;
+		layer.addTo(map);
+		legend.addTo(map);	 
+        if(flag_predict === 1){
+			document.getElementById("POP1").checked = false;
+			group.remove();
+			flag_predict  = 0;
+		};		
+		if(flag_diff === 1){
+			document.getElementById("DIFF").checked = false;
+			group_diff.remove();
+			legend_diff.remove();
+			flag_diff = 0;
+		};
     } else {
 		layer.remove();
         legend.remove(map);		
+		flag_actual  = 0;
+	};
+};
+
+function adddiffToMap(element, layer) {
+	
+    if (element.checked){
+		flag_diff  = 1;
+		layer.addTo(map);
+		legend_diff.addTo(map);	 
+        if(flag_predict === 1){
+			document.getElementById("POP1").checked = false;
+			group.remove();
+			legend.remove();
+			flag_predict  = 0;
+		};		
+		if(flag_actual === 1){
+			document.getElementById("POA").checked = false;
+			group_actual.remove();
+			legend.remove();
+			flag_actual = 0;
+		};
+    } else {
+		layer.remove();
+        legend_diff.remove();		
+		flag_diff  = 0;
 	};
 };
 

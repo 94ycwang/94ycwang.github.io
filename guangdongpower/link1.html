@@ -67,9 +67,11 @@
     <div id="list"  align="left"  style="width:25%; height:700px;min-width:300px; padding-right: 10px; margin-left: 10px; margin-right: auto;float:left;" > 
 	<h3> <font size="+2"><font face="宋体">2015 彩虹</font> <font face="Book Antiqua">| Mujigae</font></font> </h3>
 	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">电力故障 </font><br><font face="Book Antiqua"><font size="+1">Power Outage</font></font></h3>
-	<input type="checkbox" id="POP1"  checked =true onclick="addLayerToMap2(this,group)"> <font size="3"><font face="宋体"><strong>故障预报</font> <font face="Book Antiqua"> | Outage Prediction</font>
+	<input type="checkbox" id="POP1"  checked =true onclick="addpredictToMap(this,group)"> <font size="3"><font face="宋体"><strong>故障预报</font> <font face="Book Antiqua"> | Outage Prediction</font>
 	<br><br>
-	<input type="checkbox" id="POP2"  onclick="addLayerToMap2(this,group_actual)"> <font size="3"><font face="宋体"><strong>实际故障</font> <font face="Book Antiqua"> | Actual Outage </font>
+	<input type="checkbox" id="POA"  onclick="addactualToMap(this,group_actual)"> <font size="3"><font face="宋体"><strong>实际故障</font> <font face="Book Antiqua"> | Actual Outage </font>
+		<br><br>
+	<input type="checkbox" id="DIFF"  onclick="adddiffToMap(this,group_diff)"> <font size="3"><font face="宋体"><strong>预报误差</font> <font face="Book Antiqua"> | Prediction Error</font>
     <br>
     <h3 style="color:#bb0000"> <font face="宋体"><font size="+2">台风路径 </font><br><font face="Book Antiqua"><font size="+1">Typhoon Tracks</font></font></h3>
 	<input type="checkbox" id="Track1"  checked =true onclick="addLayerToMap1(this,best_track)"><span style="color:black; display: inline-block;"><font face="宋体">实际路径</font><font face="Book Antiqua"> | Actual Track  <br></font></span>
@@ -112,8 +114,8 @@
 	
 	
 	<span style="color:#bb0000"><font face="宋体">透明度</font><font face="Book Antiqua"> | Transparency<br></font></span>
-    <input type="range" name="layeropacity" id="layeropacity" value="50" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
-    <output id="rangevalue">50</output>
+    <input type="range" name="layeropacity" id="layeropacity" value="70" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
+    <output id="rangevalue">70</output>
 	<br><br>
 	
 	<span style="color:#bb0000"><font face="宋体">格点查询</font><font face="Book Antiqua"> | Search By ID<br></font></span></strong>
