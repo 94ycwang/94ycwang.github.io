@@ -358,5 +358,3 @@ function ZoomToTyphoon(element) {
 		Typhoon[element.num].remove();					
 	};
 };
-
-
