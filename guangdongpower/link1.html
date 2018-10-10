@@ -110,9 +110,12 @@
 		<option value="10/5/2015 0:00">10/5/2015 0:00</option>
 
     </select>
+	<br>
+	<h3 style="color:#bb0000"> <font face="宋体"><font size="+2">风场 </font><br><font face="Book Antiqua"><font size="+1">Wind Field</font></font></h3>
+	<input type="checkbox" id="POP1" onclick="addpredictToMap(this,group)"><font size="3"><font face="宋体"><strong>最大阵风风速</font> <font face="Book Antiqua"> | Max Gust Wind</font>
+	<br><br>
+	<input type="checkbox" id="POP1" onclick="addpredictToMap(this,group)"><font size="3"><font face="宋体"><strong>最大持续风速</font> <font face="Book Antiqua"> | Max Sustained Wind</font>
 	<br><br><br>
-	
-	
 	<span style="color:#bb0000"><font face="宋体">透明度</font><font face="Book Antiqua"> | Transparency<br></font></span>
     <input type="range" name="layeropacity" id="layeropacity" value="70" min="0" max="100" step="5" onchange="rangevalue.value=value" style="width: 130px;">
     <output id="rangevalue">70</output>
