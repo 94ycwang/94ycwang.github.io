@@ -753,3 +753,4 @@ L.easyPrint({
 	sizeModes: ['A4Portrait', 'A4Landscape'],
 	exportOnly: true
 }).addTo(mymap);
+
