@@ -1,7 +1,7 @@
 
-//************************************ Merge power outage model output with tract ID ********************************************
+//************************************ Merge power outage model output with tract ID *********************************************
 // Retrived data from csv file content
-var url = "http://hurricanepoweroutagemodel.science/Florence/HPOM/Florence_2018091200_OFCL_Prediction_F.csv";
+var url = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091406_OFCL_Prediction_F.csv";
 var request = new XMLHttpRequest();  //This is deprecated. We need to change this
 request.open("GET", url, false);   
 request.send(null);  
@@ -20,33 +20,10 @@ function Get(yourUrl){
     Httpreq.send(null);
     return Httpreq.responseText;          
 };
-var HPOM = JSON.parse(Get('http://hurricanepoweroutagemodel.science/Florence/HPOM/tract.geojson'));
-for (var i = 0; i < HPOM.features.length; i++) {
-    HPOM.features[i].properties.power = 0;
-    HPOM.features[i].properties.people = 0;	
-};
+var HPOM = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/37.geojson'));
 
 
-// Merge
-for (var j = 0; j < HPOM.features.length; j++) {
-    var flag = 0;
-	for (var i = 1; i < jsonObject.length; i++) {
-		result= csvData[i];
-        if (result[0]===HPOM.features[j].properties.GEOID) {
-        HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
-		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);
-		flag =1;
-        }		
-    }	
-	if(flag === 0){	
-	   delete HPOM.features[j];
-	   HPOM.features = HPOM.features.filter(function( element ) {
-               return element !== undefined;
-       });
-	   j--;
-    };
-};
-/*
+// Select tracts
 var HPOM1 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/45.geojson'));
 var HPOM2 = JSON.parse(Get('https://raw.githubusercontent.com/arcee123/GIS_GEOJSON_CENSUS_TRACTS/master/51.geojson'));
 for (var j = 0; j < HPOM1.features.length; j++) {
@@ -70,6 +47,28 @@ for (var j = 0; j < HPOM1.features.length; j++) {
 };
 
 
+// Merge
+for (var j = 0; j < HPOM.features.length; j++) {
+    var flag = 0;
+	for (var i = 1; i < jsonObject.length; i++) {
+		result= csvData[i];
+        if (result[0]===HPOM.features[j].properties.GEOID) {
+        HPOM.features[j].properties.power = (result[16]*100).toFixed(0);	
+		HPOM.features[j].properties.people = (result[16]*result[1]).toFixed(0);
+		flag =1;
+        }		
+    }	
+	if(flag === 0){	
+	   delete HPOM.features[j];
+	   HPOM.features = HPOM.features.filter(function( element ) {
+               return element !== undefined;
+       });
+	   j--;
+    };
+};
+
+
+
 for (var j = 0; j < HPOM2.features.length; j++) {
     var flag = 0;
 	for (var i = 1; i < jsonObject.length; i++) {
@@ -89,7 +88,7 @@ for (var j = 0; j < HPOM2.features.length; j++) {
 	   j--;
     };
 };
-*/
+
 
 //******************************************* Map HPOM output with hover-over function ******************************************
 // Set variable for map and initialize
@@ -414,17 +413,17 @@ function getLayer(value){
 	if(value=="sample"){
 	
 	  // Sample hurricane layers: 2017 Harvey #15
-	  track_forecast = new L.Shapefile('http://hurricanepoweroutagemodel.science/Florence/HPOM/al092017_5day_015.zip',
+	  track_forecast = new L.Shapefile('https://94ycwang.github.io/Florence/HPOM/al092017_5day_015.zip',
 	  {style: myStyle1});
-	  watch_warning  = new L.Shapefile('http://hurricanepoweroutagemodel.science/Florence/HPOM/al092017-015_ww_wwlin.zip',
+	  watch_warning  = new L.Shapefile('https://94ycwang.github.io/Florence/HPOM/al092017-015_ww_wwlin.zip',
 	  {style: myStyle2});
-	  Psurge  = new L.Shapefile('http://hurricanepoweroutagemodel.science/Florence/HPOM/al092017_esurge10_2017082400.zip',
+	  Psurge  = new L.Shapefile('https://94ycwang.github.io/Florence/HPOM/al092017_esurge10_2017082400.zip',
 	  {style: myStyle3});
-	  Pwind34 = new L.Shapefile('http://hurricanepoweroutagemodel.science/Florence/HPOM/2017082400_wsp_120hr5km34.zip',
+	  Pwind34 = new L.Shapefile('https://94ycwang.github.io/Florence/HPOM/2017082400_wsp_120hr5km34.zip',
 	  {style: myStyle4});
-	  Pwind50 = new L.Shapefile('http://hurricanepoweroutagemodel.science/Florence/HPOM/2017082400_wsp_120hr5km50.zip',
+	  Pwind50 = new L.Shapefile('https://94ycwang.github.io/Florence/HPOM/2017082400_wsp_120hr5km50.zip',
 	  {style: myStyle4});
-	  Pwind64 = new L.Shapefile('http://hurricanepoweroutagemodel.science/Florence/HPOM/2017082400_wsp_120hr5km64.zip',
+	  Pwind64 = new L.Shapefile('https://94ycwang.github.io/Florence/HPOM/2017082400_wsp_120hr5km64.zip',
 	  {style: myStyle4});
 	}else{
 		
@@ -726,7 +725,7 @@ function popup(id) {
 
 //****************************************************** Download files *********************************************************
 function downloadObjectAsCsv(exportObj, exportName){
-    var dataUrl = "http://hurricanepoweroutagemodel.science/Florence/HPOM/Florence_2018091200_OFCL_Prediction_F.csv";
+    var dataUrl = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091406_OFCL_Prediction_F.csv";
     var downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href",     dataUrl);
     downloadAnchorNode.click();
@@ -809,7 +808,7 @@ L.easyPrint({
 }).addTo(mymap);
 
 //******************************************************* Add forecast track ********************************************************
-var urlforecast = "http://hurricanepoweroutagemodel.science/Florence/HPOM/Florence_2018091200_OFCL_Track_MPH.csv";
+var urlforecast = "https://94ycwang.github.io/Florence/HPOM/Florence_2018091406_OFCL_Track_MPH.csv";
 var request = new XMLHttpRequest();  
 request.open("GET", urlforecast, false);   
 request.send(null);  

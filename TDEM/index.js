@@ -302,13 +302,13 @@ function getwindColor(d) {
  // Create hurricane layers from external REST services (NHC)
 var track_forecast = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
-	layers:[5,6]},{style: myStyle1});//,16,17,27,28,38,39,49,50
+	layers:[5,6,16,17,27,28,38,39,49,50]},{style: myStyle1});
 var watch_warning  = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
-	layers:[7]},{style: myStyle2});//,18,29,40,51
+	layers:[7,18,29,40,51]},{style: myStyle2});
 var Psurge = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
-	layers:[14]},{style: myStyle3});//,25,36,46,58
+	layers:[14,25,36,46,58]},{style: myStyle3});
 var Pwind34 = L.esri.dynamicMapLayer({
 	url:'https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/NHC_Atl_trop_cyclones/MapServer/', 
 	layers:[59]},{style: myStyle4});
@@ -369,7 +369,7 @@ function getLayer(value){
 	  {style: myStyle4});
 	  Pwind50 = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/2017082400_wsp_120hr5km50.zip',
 	  {style: myStyle4});
-	  Pwind64 = new L.Shapefile('https://94ycwang.github.io/TDEM/HPOM/2017082400_wsp_120hr5km64.zip',
+	  Pwind64 = new L.Shapefile('https://94ycwang.github.io/TDEM/2017082400_wsp_120hr5km64.zip',
 	  {style: myStyle4});
 	
 	}else{
@@ -395,7 +395,6 @@ function getLayer(value){
 		layers:[61]},{style: myStyle4});
 	};	
 };	
-
 
 //*************************************************** Add base map layers *******************************************************
 // Create basemap layers -- basemaps http://leaflet-extras.github.io/leaflet-providers/preview/ 
@@ -500,13 +499,12 @@ legend_wind.onAdd = function (map) {
     return div;
 };
 		
-
 //***************************** Function used to add and remove layers via a checkbox *******************************************	
 // Checkbox function for HPOM output
 var flagpower    = 1;  // Whether LHPOM layer is on
 var flagpeople   = 0;  // Whether LHPOM_P layer is on
 function addLayerToMap_HPOM(element, layer) {
-	
+
     if (element.checked){
 
       	if(layer==LHPOM){
@@ -719,11 +717,9 @@ function download() {
 	};
 };	
 
-
 //****************************************************** Add search function ****************************************************
 flag = 0; // Whether tract_ID can be found
 function search(){
-	
 	x = document.getElementById("ID").value;
 	for (var j = 0; j < HPOM.features.length; j++) {
       if (x===HPOM.features[j].properties.GEOID) {
@@ -742,9 +738,7 @@ function search(){
     alert('TractID: '+ x+ '\n' + 'Population affected: ' + population +'\n'+'Percentage: '+ percentage +'%');
 	flag = 0;
 	};
-
 };	
-
 
 //******************************************************* Print snapshot ********************************************************
 L.easyPrint({
@@ -753,4 +747,3 @@ L.easyPrint({
 	sizeModes: ['A4Portrait', 'A4Landscape'],
 	exportOnly: true
 }).addTo(mymap);
-
