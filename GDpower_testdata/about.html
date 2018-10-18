@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>关于 | About</title> 
+	<link rel="stylesheet" href="HPOM/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+</head>
+
+<center>
+<body> <!-- Our web map and content will go here -->
+<div class="title">
+  <h1 align="center"><font face="宋体"><font color="white"><font size="+3">电 力 故 障 模 式 预 报 </font></font></font>
+  </br>  <align="center"><font face="Book Antiqua"><font color="white"><font size="+1"> Power Outage Model Geoviewer</font></font></font></h1>
+
+</div>
+<div style="min-width:600px;">
+<ul>
+  <li><a href="index.html"><font size="+1"><strong><i class="fa fa-home"></i> <font face="宋体">主页</font> <font face="Book Antiqua">| Home</font> </a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn"><font face="宋体">历史台风     </font><font face="Book Antiqua">| Historical Typhoons </font></a>
+    <div class="dropdown-content">
+      <a href="link1.html"><font face="宋体">2015 1522 彩虹</font> <font face="Book Antiqua">| MUJIGAE</font></a>
+      <a href="link2.html"><font face="宋体">2014 1415 海鸥</font> <font face="Book Antiqua">| KALMAEGI</font></a>
+      <a href="link3.html"><font face="宋体">2014 1409 威马逊</font> <font face="Book Antiqua">| RAMMASUN</font></a>
+    </div>
+  </li>
+  
+  <li><a class="active" href="about.html" > <font face="宋体">关于     </font><font face="Book Antiqua">| About      </font> </a></li>
+  <li><a href="contact.html"><font face="宋体">联系我们 </font><font face="Book Antiqua">| Contact Us </font> </strong></font></a></li>
+</ul>
+</div>
+
+<div class="title2" align="left">
+  <h3 style="color:#bb0000"><font size="+2"><font face="宋体">简介</font><font face="Book Antiqua"> | Introduction</font></font></h3>
+</div>
+
+<div class="container3" align="left">
+<p align="left">  <font size="+1">
+ <font face="宋体">本网页提供电力故障预报。我们的网页正在建设中。如果有任何疑问或建议欢迎联系我们。</font><br/>
+ <font face="Book Antiqua">This web page distributes the power outage predictions. Our website is under construction. Any questions or suggestions are welcomed.</font>
+<br/><br/>
+</font></p>
+
+<p align="left" class="downloadM" onclick="downloadmanual()" style="cursor:pointer;"><font size="+1"; color="#bb0000"><strong><font face="宋体">下载用户手册</font> <font face="Book Antiqua"> | Download User Manual</strong></font></font></p>
+
+
+</center>
+
+<script> 
+// Download user manual
+function downloadmanual() {
+    var dataUrl = "https://94ycwang.github.io/TDEM/HPOM/User_manual.pdf";
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",dataUrl);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+};	
+</script>
+
+</body>
+
+</html>
+
