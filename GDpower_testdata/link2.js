@@ -1,15 +1,15 @@
 
 // ******************************************** Set variable for map and initialize ******************************************************************
-var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
+var normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
         maxZoom: 18,
     }),
-    normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion', {
+    /*normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion', {
+        maxZoom: 18,
+    }),*/
+    imgm = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
         maxZoom: 18,
     }),
-    imgm = L.tileLayer.chinaProvider('TianDiTu.Satellite.Map', {
-        maxZoom: 18,
-    }),
-    imga = L.tileLayer.chinaProvider('TianDiTu.Satellite.Annotion', {
+    imga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
         maxZoom: 18,
     }),
 
@@ -17,10 +17,10 @@ var normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
         maxZoom: 18,
     });
 
-var normal = L.layerGroup([normalm, normala]),
+var normal = L.layerGroup([normalm]),
     image  = L.layerGroup([imgm, imga]);
 
-normala.setZIndex(102);
+/*normala.setZIndex(102);*/;
 imga.setZIndex(102);
 	
 var baseLayers = {
