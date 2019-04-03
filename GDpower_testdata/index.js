@@ -1,7 +1,5 @@
 
 // Set variable for map and initialize
-
-
 var normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
         maxZoom: 18,
     }),
@@ -22,6 +20,12 @@ var normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
 var normal = L.layerGroup([normalm]),
     image  = L.layerGroup([imgm, imga]);
 
+
+var baseLayers = {
+    "地图 | Normal Map": normal,
+    "影像 | Imagery": image
+};
+	
 
 var map = L.map("mapid", {
     center: [20.4, 110.2],
