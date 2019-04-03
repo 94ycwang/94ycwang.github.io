@@ -1,12 +1,12 @@
 
 // Set variable for map and initialize
-var normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
+var normalm = L.tileLayer.chinaProvider('Google.Normal.Map', {
         maxZoom: 18,
     }),
     /*normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion', {
         maxZoom: 18,
     }),*/
-    imgm = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
+    imgm = L.tileLayer.chinaProvider('Google.Satellite.Map', {
         maxZoom: 18,
     }),
     imga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
