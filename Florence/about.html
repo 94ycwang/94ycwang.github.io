@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>HPOMG | About</title> 
+  <!-- External Stylesheets (we keep integrity to avoid security issues)-->
+    <link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<center>
+<div class="title">
+  <h1 align="center"><font face="Helvetica"><font color="white"><font size="+3">Hurricane Power Outage Model GeoViewer</font></font></font></h1>	
+</div>
+<ul>
+  <li><a href="index.html"><font face="Book Antiqua"><strong><i class="fa fa-home"></i> Home</a></li>
+  <li><a class="active" href="about.html" > About</a></li>
+  <li><a href="contact.html">Contact Us</strong></font></a></li>
+</ul>
+
+<div class="title2" align="left">
+  <h3 style="color:#bb0000"><font size="+2"><font face="Book Antiqua">Introduction</font></font></h3>
+</div>
+
+<div class="container3" align="left">
+<p align="left"> <font size="+1">
+ This web page distributes the power outage predictions based on a model developed by Dr. Brent McRoberts, Dr. Seth Guikema and Dr. Steven Quiring. A full description of the model is available in <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/risa.12728">McRoberts et al. (2016)</a>.
+ <br/><br/>
+The Hurricane Power Outage Model GeoViewer (HPOMG) provides a user-friendly web-based application to help make hurricane preparedness and response decisions. This product incorporates projections from the Hurricane Power Outage Prediction Model (HPOM), developed by McRoberts et al. (2016), into a decision-support tool. This easy-to-use interface can represent HPOM output in conjunction to locations of critical public facilities, water treatment facilities, and geographic areas of vulnerability to better equip emergency managers with the tools to make informed decisions. With this newly-developed geographic interface, users will have access to:
+ <br/>
+ (a) Near real-time hurricane and tropical cyclone power outage tracking<br/>
+ (b) An integrative interface displaying spatial data layers of additional weather parameters<br/>
+ (c) Additional hurricane and tropical cyclone forecasts<br/>
+ (d) Downloadable model outputs, geographic files, and images<br/><br/>
+
+ Please note that this model was trained with data primarily from hurricanes that did not stall out or move slowly, producing large amounts of rain (e.g., Harvey). Because of this, the model does not fully account for inland outages caused by riverine flooding due to prolonged, heavy rainfall. There is uncertainty on the level of inland outages, and the model may be underestimating outages in inland areas, particularly in and near flood-prone areas.<br/><br/>
+ The outage estimates are provided for informational purposes only and are the product of a research project at the collaborating institutions. The information is provided "as is" without warranty of any kind. The investigators and their universities do not accept any responsibility or liability for the accuracy, content, completeness, legality, or reliability of the information contained on this website. This research was funded in part by the U.S. Department of Energy and a private utility.<br/><br/>
+ For further information, you can contact <a href="https://geography.osu.edu/people/quiring.10">Steven Quiring</a> or <a href="https://ioe.engin.umich.edu/people/seth-guikema/">Seth Guikema</a>.  <br/>  
+</font></p>
+
+<p align="left" class="downloadM" onclick="downloadmanual()" style="cursor:pointer;"><font size="+1"; color="#bb0000"><strong>Download User Manual</strong></font></p>
+
+
+<div class="logos" align="right">
+  <tr>
+  <td> <img src="HPOM/OSU_LOGO.jpg" height="75 px" width="150 px"></td>
+  </tr>
+</div>
+</div>
+
+</center>
+
+<script> 
+// Download user manual
+function downloadmanual() {
+    var dataUrl = "http://hurricanepoweroutagemodel.science/Florence/HPOM/User_manual.pdf";
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",dataUrl);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+};	
+</script>
+
+</body>
+
+</html>
+
